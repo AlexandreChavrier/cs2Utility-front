@@ -6,13 +6,13 @@ import DropdownMenuHeader from '../ui/navigation/DropdownMenuHeader';
 import SteamIcon from '../ui/icons/SteamIcon';
 import HeartIcon from '../ui/icons/HeartIcon';
 import SunIcon from '../ui/icons/SunIcon';
-import DropdownMenu from '../ui/navigation/DropdownMenu';
+import { maps } from '@/data/maps';
 
 interface HeaderProps {
   className?: string;
 }
 
-const STYLES = {
+const STYLES_HEADER = {
   header: "w-full top-0 z-50 sticky py-6 font-semibold backdrop-blur bg-[linear-gradient(90.13deg,rgba(72,66,209,0.12)_-16.44%,rgba(136,132,225,0.12)_121.16%)]",
   container: "w-full px-4 md:px-6 lg:px-8",
   nav: "max-w-[1280px] flex items-center gap-6 mx-auto justify-between",
@@ -24,20 +24,22 @@ const STYLES = {
 
 const Header = ({ className = '' }: HeaderProps) => {
   return (
-    <header className={STYLES.header}>
-      <div className={STYLES.container}>
-        <nav className={STYLES.nav}>
+    <header className={STYLES_HEADER.header}>
+      <div className={STYLES_HEADER.container}>
+        <nav className={STYLES_HEADER.nav}>
           <Link href="/">
             <Image src="/assets/logo.png" alt="logo" width={56} height={56} />
           </Link>
 
-          <div className={STYLES.navLinks}>
-            <DropdownMenuHeader />
-            <Link href='/lineups' className={STYLES.link}>Lineups populaires</Link>
-            <Link href='' className={STYLES.link}>Actualité</Link>
+          <div className={STYLES_HEADER.navLinks}>
+            <DropdownMenuHeader
+              options={maps}
+            />
+            <Link href='/lineups' className={STYLES_HEADER.link}>Lineups populaires</Link>
+            <Link href='' className={STYLES_HEADER.link}>Actualité</Link>
           </div>
 
-          <div className={STYLES.actionsContainer}>
+          <div className={STYLES_HEADER.actionsContainer}>
             <DefaultButton
               title='Se connecter avec Steam'
               variant='purple'

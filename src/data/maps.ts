@@ -15,7 +15,8 @@ export const maps: GameMap[] = [
     icon: '/assets/mapIcons/mirageIcon.webp',
     image: '/assets/mapImages/mirage.webp',
     link: '/lineups',
-    active: true
+    active: true,
+
   },
   {
     id: 2,
