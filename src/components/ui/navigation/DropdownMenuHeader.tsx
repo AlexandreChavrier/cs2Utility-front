@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 import MenuIcon from "../icons/MenuIcon";
 import Image from "next/image";
 import Link from "next/link";
-import { GameMap, maps } from "@/data/maps";
+import { GameMap } from "@/data/maps";
 
 
 export type DropdownMenuProps = {
@@ -21,7 +21,7 @@ const STYLES = {
   item: "flex items-center p-2 w-full text-neutral-white gap-2 border-2 border-transparent transition-all duration-300 ease-in-out mb-2 rounded-sm hover:border-neutral-700 hover:bg-neutral-600 hover:pl-4"
 };
 
-const DropdownMenuHeader = ({ options, href, className }: DropdownMenuProps) => {
+const DropdownMenuHeader = ({ options }: DropdownMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 

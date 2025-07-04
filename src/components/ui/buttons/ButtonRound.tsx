@@ -12,7 +12,7 @@ const buttonVariants = {
   blue: "bg-blue-600 text-white border-md border-blue-500 hover:bg-blue-700",
 };
 
-const ButtonRound = ({ icon, href, variant }: ButtonRoundProps) => {
+const ButtonRound = ({ icon, variant }: ButtonRoundProps) => {
   const baseClasses = "flex flex-row justify-center items-center w-12 h-12 p-3 border-borderWidth-md rounded-round gap-1 cursor-pointer font-semibold text-neutral-white";
   const variantClasses = variant ? buttonVariants[variant] : '';
 

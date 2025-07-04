@@ -1,4 +1,4 @@
-import DropdownMenu, { DropdownContent } from "@/components/ui/navigation/DropdownMenu";
+import DropdownMenu from "@/components/ui/navigation/DropdownMenu";
 import Image from "next/image";
 import { dropdownMenuMaps, dropdownMenuPositions, dropdownMenuSides, dropdownMenuTypes, dropdownMenuUtilities } from "@/data/dropdown";
 

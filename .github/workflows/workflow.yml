@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ] 
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build Next.js application
+        run: npm run build
+
+      - name: Test Docker build
+        run: |
+          echo "Building Docker image..."
+          docker build -t cs2-deck-test .
+          
+      - name: Test Docker container
+        run: |
+          echo "Starting container..."
+          docker run --rm -d -p 3000:3000 --name test-container cs2-deck-test
+          
+          echo "Waiting for app to start..."
+          sleep 15
+          
+          echo "Testing if app responds..."
+          curl -f http://localhost:3000 || exit 1
+          
+          echo "Stopping container..."
+          docker stop test-container
+          
+          echo "✅ Docker build and startup test passed!"
+
+      - name: Clean up Docker images
+        run: docker rmi cs2-deck-test || true

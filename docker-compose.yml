@@ -1,0 +1,25 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      # Ajoutez vos variables d'environnement ici
+      # - NEXT_PUBLIC_API_URL=http://localhost:8000
+    volumes:
+      # Pour le développement seulement
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    restart: unless-stopped
+
+  # Si vous avez un backend
+  # backend:
+  #   build: ../backend
+  #   ports:
+  #     - "8000:8000"
+  #   environment:
+  #     - NODE_ENV=production

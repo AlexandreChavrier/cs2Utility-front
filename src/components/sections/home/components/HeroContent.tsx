@@ -5,7 +5,7 @@ import Flame from "@/components/ui/icons/Flame";
 
 const HeroContent = () => {
   return (
-    <div className="text-center max-w-[800px]">
+    <div className="text-center max-w-[1440px]">
       <div className="flex flex-col gap-4">
         <h1>Deviens un expert des utilitaires avec les lineups indispensables pour CS2</h1>
         <p>

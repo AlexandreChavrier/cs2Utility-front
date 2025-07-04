@@ -1,12 +1,12 @@
 import React from "react";
-import { maps, GameMap } from "@/data/maps";
+import { maps } from "@/data/maps";
 import MapCard from "@/components/ui/cards/MapCard";
 import ButtonRound from "@/components/ui/buttons/ButtonRound";
 import Arrow from "@/components/ui/icons/Arrow";
 
 const STYLES = {
   container: "w-full px-4 md:px-6 lg:px-8",
-  wrapper: "flex flex-col max-w-[1280px] mx-auto mt-16 gap-8 p-8 bg-primary-1000 border-md border-neutral-800 rounded-lg",
+  wrapper: "flex flex-col max-w-[1440px] mx-auto mt-16 gap-8 p-8 bg-primary-1000 border-md border-neutral-800 rounded-lg",
   topGrid: "w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8",
   bottomGrid: "w-full grid grid-cols-1 sm:grid-cols-3 gap-8",
   topCardWrapper: "aspect-square",

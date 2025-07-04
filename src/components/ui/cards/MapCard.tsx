@@ -1,6 +1,4 @@
 import { ReactNode } from 'react';
-import Buttons from '../buttons/DefaultButton';
-import SteamIcon from '../icons/SteamIcon';
 import Link from 'next/link';
 
 export type CradProps = {
