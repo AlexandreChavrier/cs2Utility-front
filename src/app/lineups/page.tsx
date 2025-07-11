@@ -1,10 +1,9 @@
 'use client';
 
-import MapSection from "@/components/sections/lineupPage/MapSection";
+import MapSection from "@/components/interactive-map/MapSection";
 
 export default function LineupsPage() {
   return (
     <MapSection />
-
   )
 }

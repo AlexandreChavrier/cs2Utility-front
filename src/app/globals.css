@@ -230,7 +230,7 @@ body {
   font-family: var(--type-font-family-body);
   font-weight: var(--type-font-weight-medium);
   font-size: var(--fontsize-body-md);
-  background: linear-gradient(0deg, rgba(8, 15, 40, 0.5), rgba(8, 15, 40, 0.5)), linear-gradient(115.6deg, #080F28 0%, #221F75 100%);
+  background: var(--neutral-1000);
   color: var(--text-body);
   line-height: var(--line-height-body-md);
   height: 100%;

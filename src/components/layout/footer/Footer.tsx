@@ -2,16 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import FooterColumns from "./FooterColumns";
 
-const STYLES = {
-  footer: "w-full py-24 bg-primary-1000",
-  container: "w-full px-4 md:px-6 lg:px-8",
-  wrapper: "max-w-[1280px] m-auto flex flex-row text-left items-start justify-center gap-8",
-  logoSection: "w-full flex flex-col gap-4 m-0",
-  logoContainer: "w-full flex flex-col items-start justify-center gap-4",
-};
-
 const Footer = () => {
-
   const columns = [
     {
       title: "Pages",
@@ -37,18 +28,24 @@ const Footer = () => {
       ]
     }
   ];
+
   return (
-    <footer className={STYLES.footer}>
-      <div className={STYLES.container}>
-        <div className={STYLES.wrapper}>
-          <div className={STYLES.logoSection}>
-            <div className={STYLES.logoContainer}>
-              <Link href="/">
-                <Image src="/assets/logo.png" alt="logo" width={56} height={56} />
-              </Link>
-              <Image src="/assets/CS2-decks-img-logo.png" alt="" width={220} height={64}></Image>
-            </div>
+    <footer className="w-full py-24 bg-[#15171E]">
+      <div className="w-full px-4 md:px-6 lg:px-8">
+        <div className="max-w-[1440px] mx-auto flex items-start justify-center gap-8 text-left">
+          
+          <div className="w-full flex flex-col gap-4">
+            <Link href="/" className="flex-shrink-0">
+              <Image src="/assets/logo.png" alt="logo" width={56} height={56} />
+            </Link>
+            <Image 
+              src="/assets/CS2-decks-img-logo.png" 
+              alt="CS2 Decks" 
+              width={220} 
+              height={64}
+            />
           </div>
+
           {columns.map((column, index) => (
             <FooterColumns
               key={index}
@@ -59,8 +56,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
-  )
-
-}
+  );
+};
 
 export default Footer;

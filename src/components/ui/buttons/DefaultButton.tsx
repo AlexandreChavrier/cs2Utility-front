@@ -23,7 +23,7 @@ export type DefaultButtonProps = {
   size?: keyof typeof buttonSizes
 }
 
-export const Buttons = ({
+export const DefaultButton = ({
   title,
   icon,
   href,
@@ -62,5 +62,5 @@ export const Buttons = ({
   return buttonContent;
 }
 
-export default Buttons;
+export default DefaultButton;
 

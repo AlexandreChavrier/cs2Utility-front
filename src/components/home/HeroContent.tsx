@@ -1,6 +1,7 @@
+
 import React from "react";
 import RoadMap from "@/components/ui/icons/RoadMap";
-import Buttons from "@/components/ui/buttons/DefaultButton";
+import DefaultButton from "@/components/ui/buttons/DefaultButton";
 import Flame from "@/components/ui/icons/Flame";
 
 const HeroContent = () => {
@@ -10,18 +11,18 @@ const HeroContent = () => {
         <h1>Deviens un expert des utilitaires avec les lineups indispensables pour CS2</h1>
         <p>
           Accède à une sélection des meilleurs lineups pour smokes, grenades, molotovs et flashs, tirés des stratégies
-          des
-          pros et des astuces de la communauté.
+          des pros et des astuces de la communauté.
         </p>
       </div>
-      <div className="flex justify-center gap-4 flex-row ">
-        <Buttons
+      
+      <div className="flex justify-center gap-4">
+        <DefaultButton
           title="Voir toutes cartes"
           icon={<RoadMap />}
           variant="purple"
           size="md"
         />
-        <Buttons
+        <DefaultButton
           title="Voir les lineups populaires"
           icon={<Flame />}
           variant="outline"

@@ -11,16 +11,6 @@ export type DropdownMenuProps = {
   icon?: ReactNode;
   href?: string;
 }
-
-const STYLES = {
-  container: "relative min-w-[88px]",
-  trigger: "flex items-center justify-between w-full text-xs sm:text-sm text-neutral-white border-none cursor-pointer bg-transparent transition-all duration-300 ease-in-out gap-1",
-  icon: "transition-transform duration-500",
-  dropdown: "absolute min-w-[160px] w-full sm:w-auto right-0 sm:right-auto z-10 p-2 mt-5 bg-neutral-900 border-2 border-neutral-800 rounded-md shadow-lg overflow-auto",
-  linkWrapper: 'w-full',
-  item: "flex items-center p-2 w-full text-neutral-white gap-2 border-2 border-transparent transition-all duration-300 ease-in-out mb-2 rounded-sm hover:border-neutral-700 hover:bg-neutral-600 hover:pl-4"
-};
-
 const DropdownMenuHeader = ({ options }: DropdownMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -48,22 +38,22 @@ const DropdownMenuHeader = ({ options }: DropdownMenuProps) => {
   }, []);
 
   return (
-    <div ref={dropdownRef} className={STYLES.container}>
+    <div ref={dropdownRef} className="relative min-w-[90px]">
       <button
         type="button"
-        className={STYLES.trigger}
+        className="flex items-center justify-between w-full text-sm text-neutral-white bg-transparent cursor-pointer transition-all gap-1"
         onClick={toggleDropdown}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
       >
         <span>Toutes les cartes</span>
-        <div className={`${STYLES.icon} ${isOpen ? 'rotate-180' : ''}`}>
+        <div className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
           <MenuIcon />
         </div>
       </button>
 
       {isOpen && (
-        <div className={STYLES.dropdown}>
+        <div className="absolute min-w-40 left-1/2 -translate-x-1/2 z-10 p-2 mt-5 bg-neutral-1000 border-2 border-neutral-800 rounded-md">
           {options.map((option: GameMap, index: number) => (
             <Link
               key={index}
@@ -72,7 +62,7 @@ const DropdownMenuHeader = ({ options }: DropdownMenuProps) => {
               onClick={closeDropdown}
             >
               <div
-                className={STYLES.item}
+                className="flex items-center p-2 text-neutral-white gap-2 mb-2 rounded-sm border-2 border-transparent transition-all hover:border-neutral-700 hover:bg-neutral-600 hover:pl-4"
               >
                 {typeof option.icon === 'string' ? (
                   <Image
