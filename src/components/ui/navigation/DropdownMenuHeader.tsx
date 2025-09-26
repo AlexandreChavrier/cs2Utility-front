@@ -3,6 +3,7 @@ import MenuIcon from "../icons/MenuIcon";
 import Image from "next/image";
 import Link from "next/link";
 import { GameMap } from "@/data/maps";
+import useClickOutside from "@/utils/hooks/useHandleClickOutside";
 
 
 export type DropdownMenuProps = {
@@ -23,19 +24,7 @@ const DropdownMenuHeader = ({ options }: DropdownMenuProps) => {
     setIsOpen(false);
   }
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  useClickOutside(dropdownRef, () => setIsOpen(false), 'mousedown');
 
   return (
     <div ref={dropdownRef} className="relative min-w-[90px]">
