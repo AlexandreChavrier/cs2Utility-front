@@ -1,6 +1,7 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
 import MenuIcon from "../icons/MenuIcon";
 import Image from "next/image";
+import { renderIcon } from "@/utils/functions/renderIcon";
 
 export interface DropdownContent {
   icon?: ReactNode | string | null,
@@ -56,23 +57,6 @@ const DropdownMenu = ({
     };
   }, []);
 
-  const renderIcon = (item: string, icon?: ReactNode | string | null) => {
-    if (!icon) {
-      return null
-    }
-
-    if (typeof icon === 'string') {
-      return (
-        <Image
-          src={icon}
-          alt={item}
-          width={20}
-          height={20}
-        />
-      )
-    }
-    return <div>{icon}</div>
-  }
 
   return (
     <div ref={dropdownRef} className={STYLES.container}>

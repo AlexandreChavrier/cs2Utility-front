@@ -55,6 +55,7 @@ const useAuthStore = createAppStore<AuthStore>('auth', (set, get) => ({
       });
 
       const userLogedIn = response.data;
+      console.log(userLogedIn)
 
       set({
         user: userLogedIn,

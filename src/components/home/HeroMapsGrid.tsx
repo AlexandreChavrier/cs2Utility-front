@@ -4,7 +4,6 @@ import { maps } from "@/data/maps";
 import MapCard from "@/components/ui/cards/MapCard";
 import ButtonRound from "@/components/ui/buttons/ButtonRound";
 import Arrow from "@/components/ui/icons/Arrow";
-import { dimensions } from "@/utils/tailwindClasses/dimensions";
 
 const HeroMapsGrid = () => {
   const topRowMaps = maps.slice(0, 4);
@@ -50,8 +49,6 @@ const HeroMapsGrid = () => {
       </div>
     </div>
   )
-
-
 };
 
 export default HeroMapsGrid;

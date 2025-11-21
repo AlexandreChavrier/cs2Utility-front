@@ -18,7 +18,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="w-full top-0 z-50 w-full py-6 font-semibold backdrop-blur bg-neutral-900">
+      <header className="relative z-[999] w-full top-0 w-full py-6 font-semibold backdrop-blur bg-neutral-900">
         <div className="w-full px-4 md:px-6 lg:px-8">
           <nav className="mx-auto flex max-w-[1440px] items-center justify-between gap-6">
 
