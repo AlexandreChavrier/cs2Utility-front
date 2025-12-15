@@ -4,7 +4,7 @@ import { renderIcon } from "@/utils/functions/renderIcon";
 
 interface Props {
   filterName: string;
-  icon: string | ReactNode;
+  icon?: string | ReactNode;
   onClick?: () => void;
 }
 

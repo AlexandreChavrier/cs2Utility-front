@@ -1,19 +1,19 @@
-import Image from "next/image";
-import { useState } from "react";
-import { GameMap, maps } from "@/data/maps";
+"use client";
+
+import { maps } from "@/data/maps";
 import FilterSection, { FilterItem } from "./FilterSection";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import MapWithStableMarkers from "./MapWithStableMarkers";
+import { Utilities } from "@/data/enums/utilities.enum";
+import useLineupsStore from "./store/useLineupsStore";
 
-const MapSection = () => {
-  const [selectedMap, setSelectedMap] = useState<GameMap>(
-    maps.find((map) => map.active) || maps[0]
-  );
+const MapSection = ({ image }: { image: string }) => {
+  const mapRef = useRef<HTMLDivElement>(null);
+  const [mapHeight, setMapHeight] = useState(0);
+  const [nukeView, setNukeView] = useState(false);
 
-  const handleMapClick = (filterName: string) => {
-    const map = maps.find((m) => m.name === filterName);
-    if (map) {
-      setSelectedMap(map);
-    }
-  };
+  const { getLineups, lineups } = useLineupsStore();
 
   const mapsFilters: FilterItem[] = maps
     .filter((map) => map.active)
@@ -21,6 +21,22 @@ const MapSection = () => {
       filterName: map.name,
       icon: map.icon,
     }));
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const isNuke = pathname.includes("nuke");
+
+  const displayImage = () => {
+    if (isNuke) {
+      if (!nukeView) {
+        return "/assets/maps/nuke/radar-up.webp";
+      }
+      return "/assets/maps/nuke/radar-down.webp";
+    }
+    return image;
+  };
+
+  const currentMap = "";
 
   const teamsFilters: FilterItem[] = [
     { filterName: "Any", icon: "/assets/sideIcons/both.webp" },
@@ -48,14 +64,35 @@ const MapSection = () => {
     },
   ];
 
+  useEffect(() => {
+    // ✅ Appelle l'API
+    getLineups({ map: "dust2", type: Utilities.SMOKE });
+  }, []);
+
+  console.log(lineups);
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (mapRef.current) {
+        setMapHeight(mapRef.current.offsetHeight);
+      }
+    };
+
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
+
   return (
-    <div className="w-full max-w-[1440px] 2xl:max-w-[1680px] flex flex-col lg:flex-row gap-8 rounded-2xl p-8 mx-auto">
+    <div className="w-full max-w-[75%] flex flex-col lg:flex-row lg:items-start gap-8 rounded-2xl p-8 mx-auto">
       {/* Colonne filtres */}
-      <div className="lg:basis-[25%] lg:max-w-[500px] w-full p-6 flex flex-col gap-6">
+      <div
+        className="lg:basis-[25%] lg:max-w-[500px] w-full flex flex-col gap-6 overflow-y-auto pr-2"
+        style={{ maxHeight: mapHeight > 0 ? `${mapHeight}px` : "auto" }}
+      >
         <div className="mt-3 flex flex-wrap gap-2">{"mirage > smoke > CT"}</div>
-        <h3 className="mt-3 flex flex-wrap gap-2">
-          {selectedMap?.name || "Mirage"}
-        </h3>
+        <h3 className="mt-3 flex flex-wrap gap-2">{currentMap}</h3>
 
         <FilterSection
           filters={teamsFilters}
@@ -81,32 +118,32 @@ const MapSection = () => {
         <FilterSection
           filters={mapsFilters}
           title="Cartes"
-          onFilterClick={handleMapClick}
+          onFilterClick={(map) => {
+            router.push(`/${map.toLowerCase()}`);
+            return;
+          }}
         />
       </div>
 
       {/* Colonne carte */}
-      <div className="flex-1 bg-neutral-900 border border-neutral-800 rounded-md p-2 relative min-h-0 lg:min-h-[520px]">
-        <div className="relative w-full h-full rounded-lg overflow-hidden aspect-[4/3]">
-          <Image
-            src={selectedMap?.radarImage || "/assets/maps/mirage/radar.webp"}
-            fill
-            alt={`${selectedMap?.name || "map"} map`}
-            className="object-contain"
-            priority
-            sizes="(max-width: 1024px) 100vw, 60vw"
-          />
-          {/* Overlay pour les infos */}
-          {/* <div className="pointer-events-none absolute inset-0"> */}
-          {/* Exemple de marqueur */}
-          {/* <div className="absolute top-[32%] left-[48%] -translate-x-1/2 -translate-y-1/2">
-              <div className="w-4 h-4 rounded-full bg-purple-500 ring-4 ring-purple-500/30" />
-              <span className="mt-2 block text-xs text-white text-center">
-                Smoke CT
-              </span>
-            </div>
-          </div> */}
-        </div>
+      <div
+        ref={mapRef}
+        className="flex-1 w-full bg-neutral-900 border border-neutral-800 rounded-md p-2"
+      >
+        <MapWithStableMarkers
+          imageSrc={displayImage()}
+          markers={[
+            {
+              id: "Xbox",
+              image: "/assets/utilityIcons/smokeBadge.webp",
+              x: 48,
+              y: 39.7,
+            },
+          ]}
+          isNuke={isNuke}
+          nukeView={nukeView}
+          onToggleNukeView={() => setNukeView(!nukeView)}
+        />
       </div>
     </div>
   );

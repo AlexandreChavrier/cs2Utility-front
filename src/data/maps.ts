@@ -16,7 +16,7 @@ export const maps: GameMap[] = [
     icon: "/assets/maps/mirage/icon.webp",
     image: "/assets/maps/mirage/image.webp",
     radarImage: "/assets/maps/mirage/radar.webp",
-    link: "/lineups",
+    link: "/mirage",
     active: true,
   },
   {
@@ -25,7 +25,7 @@ export const maps: GameMap[] = [
     icon: "/assets/maps/ancient/icon.webp",
     image: "/assets/maps/ancient/image.webp",
     radarImage: "/assets/maps/ancient/radar.webp",
-    link: "/lineups",
+    link: "/ancient",
     active: true,
   },
   {
@@ -33,8 +33,8 @@ export const maps: GameMap[] = [
     name: "Nuke",
     icon: "/assets/maps/nuke/icon.webp",
     image: "/assets/maps/nuke/image.webp",
-    radarImage: "/assets/maps/nuke/radar.webp",
-    link: "/lineups",
+    radarImage: "/assets/maps/nuke/radar-up.webp",
+    link: "/nuke",
     active: true,
   },
   {
@@ -43,7 +43,7 @@ export const maps: GameMap[] = [
     icon: "/assets/maps/inferno/icon.webp",
     image: "/assets/maps/inferno/image.webp",
     radarImage: "/assets/maps/inferno/radar.webp",
-    link: "/lineups",
+    link: "/inferno",
     active: true,
   },
   {
@@ -52,16 +52,16 @@ export const maps: GameMap[] = [
     icon: "/assets/maps/train/icon.webp",
     image: "/assets/maps/train/image.webp",
     radarImage: "/assets/maps/train/radar.webp",
-    link: "/lineups",
+    link: "/train",
     active: true,
   },
   {
     id: 6,
-    name: "DustII",
+    name: "Dust2",
     icon: "/assets/maps/dust2/icon.webp",
     image: "/assets/maps/dust2/image.webp",
     radarImage: "/assets/maps/dust2/radar.webp",
-    link: "/lineups",
+    link: "/dust2",
     active: true,
   },
   // {
@@ -73,15 +73,15 @@ export const maps: GameMap[] = [
   //   link: "/lineups",
   //   active: true,
   // },
-  // {
-  //   id: 7,
-  //   name: "Overpass",
-  //   icon: "/assets/maps/overpass/icon.webp",
-  //   image: "/assets/maps/overpass/image.webp",
-  //   radarImage: "/assets/maps/overpass/radar.webp",
-  //   link: "/lineups",
-  //   active: true,
-  // },
+  {
+    id: 7,
+    name: "Overpass",
+    icon: "/assets/maps/overpass/icon.webp",
+    image: "/assets/maps/overpass/image.webp",
+    radarImage: "/assets/maps/overpass/radar.webp",
+    link: "/overpass",
+    active: true,
+  },
 ];
 
 // Fonctions utilitaires pour travailler avec les cartes
