@@ -1,10 +1,8 @@
 "use client";
 
+import useLineupsStore from "@/components/lineup/store/useLineupsStore";
+import FilterButton from "@/components/ui/buttons/FilterButton";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import FilterButton from "../ui/buttons/FilterButton";
-import useLineupsStore from "./store/useLineupsStore";
-import { Utilities } from "@/data/enums/utilities.enum";
 
 export type Marker = {
   id: string;
@@ -13,7 +11,7 @@ export type Marker = {
   y: number;
 };
 
-export default function MapWithStableMarkers({
+export default function MapWithPoints({
   imageSrc,
   markers,
   isNuke,

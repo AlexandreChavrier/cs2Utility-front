@@ -1,4 +1,4 @@
-import { Side } from "@/data/enums/side.enum";
+import { Side } from "@/data/side/side.enum";
 
 export enum ROLE {
   ROLE_SUPER_ADMIN = "ROLE_SUPER_ADMIN",
@@ -6,6 +6,13 @@ export enum ROLE {
   ROLE_USER = "ROLE_USER",
   ROLE_ANONYMOUS = "ROLE_ANONYMOUS",
 }
+
+export type DestinationPoint = {
+  uuid: string;
+  label: string;
+  x: number;
+  y: number;
+};
 
 export type UserResponse = {
   uuid: string;
@@ -25,12 +32,7 @@ export type LineupResponse = {
   mapId: string;
   throwFromX: number;
   throwFromY: number;
-  destinationPoint: {
-    id: string;
-    label: string;
-    x: number;
-    y: number;
-  };
+  destinationPoint: DestinationPoint;
   side: Side;
   imageUrl: string;
   videoUrl: string;
@@ -38,6 +40,14 @@ export type LineupResponse = {
   instructions: string;
   createdAt: string;
   updatedAt: string;
+};
+
+export type ActionResponse = {};
+
+export type ActionTypeResponse = {
+  id: string;
+  name: string;
+  iconUrl: string;
 };
 
 export type MapResponse = {

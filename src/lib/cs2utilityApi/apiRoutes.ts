@@ -8,5 +8,9 @@ export enum ApiRoutes {
   // Lineups
   LINEUPS = "/lineups",
 
+  // Actions
+  ACTIONS = "/actions",
+  ACTION_TYPES = "/action-types",
+
   MAPS = "/maps",
 }

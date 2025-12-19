@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import useAuthStore from "@/components/auth/store/useAuthStore";
 import Footer from "@/components/layout/footer/Footer";
 import Header from "@/components/layout/Header";
+import useMapsStore from "@/components/map/store/useMapsStore";
 
 export default function ClientLayout({
   children,
@@ -15,6 +16,14 @@ export default function ClientLayout({
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
+
+  const { maps, isFetching, getActiveMaps } = useMapsStore();
+
+  useEffect(() => {
+    if (!isFetching && maps.length === 0) {
+      getActiveMaps();
+    }
+  }, []);
 
   return (
     <>

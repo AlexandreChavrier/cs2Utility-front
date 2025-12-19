@@ -3,10 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import DefaultButton from "@/components/ui/buttons/DefaultButton";
 import DropdownMenuHeader from "../ui/navigation/DropdownMenuHeader";
-import SteamIcon from "../ui/icons/SteamIcon";
 import HeartIcon from "../ui/icons/HeartIcon";
 import SunIcon from "../ui/icons/SunIcon";
-import { maps } from "@/data/maps";
 import { useState } from "react";
 import AuthentificationModal from "../auth/AuthentificationModal";
 
@@ -26,7 +24,7 @@ const Header = () => {
             </Link>
 
             <div className="hidden md:flex items-center gap-8">
-              <DropdownMenuHeader options={maps} />
+              <DropdownMenuHeader />
               <Link
                 href="/lineups"
                 className="text-body-sm text-neutral-white hover:text-primary-300 transition-colors duration-300"

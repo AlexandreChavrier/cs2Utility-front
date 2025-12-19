@@ -1,5 +1,5 @@
-import HeroContent from "@/components/home/HeroContent";
-import HeroMapsGrid from "@/components/home/HeroMapsGrid";
+import HeroContent from "@/components/home/Welcome";
+import HeroMapsGrid from "@/components/home/MapsGrid";
 
 export default function Home() {
   return (

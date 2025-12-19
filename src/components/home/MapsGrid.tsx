@@ -1,10 +1,14 @@
+"use client";
+
 import React from "react";
-import { maps } from "@/data/maps";
-import MapCard from "@/components/ui/cards/MapCard";
+import MapCard from "@/components/home/MapCard";
 import ButtonRound from "@/components/ui/buttons/ButtonRound";
 import Arrow from "@/components/ui/icons/Arrow";
+import useMapsStore from "../map/store/useMapsStore";
 
 const HeroMapsGrid = () => {
+  const { maps } = useMapsStore();
+
   const topRowMaps = maps.slice(0, 4);
   const bottomRowMaps = maps.slice(4);
 
@@ -14,9 +18,9 @@ const HeroMapsGrid = () => {
         {topRowMaps.map((map) => (
           <div className="aspect-square" key={map.id}>
             <MapCard
-              href={map.link}
-              image={map.image}
-              title={map.name}
+              href={`/${map.id}`}
+              image={map.imageUrl}
+              title={map.displayName}
               icon={<ButtonRound variant="purple" icon={<Arrow />} />}
               className="before:absolute before:inset-0 before:bg-black/50 before:transition-all hover:before:bg-black/30"
             />
@@ -27,9 +31,9 @@ const HeroMapsGrid = () => {
         {bottomRowMaps.map((map) => (
           <div className="aspect-square sm:aspect-[4/3]" key={map.id}>
             <MapCard
-              href={map.link}
-              image={map.image}
-              title={map.name}
+              href={`/${map.id}`}
+              image={map.imageUrl}
+              title={map.displayName}
               icon={<ButtonRound variant="purple" icon={<Arrow />} />}
               className="before:absolute before:inset-0 before:bg-black/50 before:transition-all hover:before:bg-black/30"
             />

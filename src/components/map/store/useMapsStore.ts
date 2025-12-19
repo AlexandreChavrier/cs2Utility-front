@@ -1,5 +1,4 @@
-import { Actions } from "@/data/enums/actions.enum";
-import { Utilities } from "@/data/enums/utilities.enum";
+import { Actions } from "@/data/action/actions.enum";
 import apiClient from "@/lib/apiClient/axios";
 import { LineupResponse, MapResponse } from "@/lib/cs2utilityApi/apiResponses";
 import { ApiRoutes } from "@/lib/cs2utilityApi/apiRoutes";

@@ -1,15 +1,16 @@
 import { ReactNode } from "react";
-import FilterButton from "../ui/buttons/FilterButton";
+import FilterButton from "../../ui/buttons/FilterButton";
 
 export type FilterItem = {
   filterName: string;
   icon: string | ReactNode;
+  id?: string;
 };
 
 interface Props {
   title: string;
   filters: FilterItem[];
-  onFilterClick?: (filterName: string) => void;
+  onFilterClick?: (id: string) => void;
 }
 
 const FilterSection = ({ title, filters, onFilterClick }: Props) => {
@@ -22,7 +23,7 @@ const FilterSection = ({ title, filters, onFilterClick }: Props) => {
             key={`${title}-${filter.filterName}-${index}`}
             filterName={filter.filterName}
             icon={filter.icon}
-            onClick={() => onFilterClick?.(filter.filterName)}
+            onClick={() => onFilterClick?.(filter.id || filter.filterName)}
           />
         ))}
       </div>
