@@ -2,31 +2,37 @@
 
 import useLineupsStore from "@/components/lineup/store/useLineupsStore";
 import FilterButton from "@/components/ui/buttons/FilterButton";
+import { DestinationPoint } from "@/lib/cs2utilityApi/apiResponses";
 import Image from "next/image";
 
-export type Marker = {
-  id: string;
+export type LineupPoint = {
+  uuid: string;
   image: string;
-  x: number;
-  y: number;
+  throwFromX: number;
+  throwFromY: number;
 };
 
-export default function MapWithPoints({
-  imageSrc,
-  markers,
+interface Props {
+  mapImgUrl: string;
+  isNuke: boolean;
+  nukeView: boolean;
+  onToggleNukeView?: () => void;
+  destinationPoints: DestinationPoint[];
+  onDestinationClick?: () => void;
+  lineupPoints?: LineupPoint[];
+}
+
+const MapWithPoints = ({
+  mapImgUrl,
   isNuke,
   nukeView,
   onToggleNukeView,
-  imageAlt = "map",
-}: {
-  imageSrc: string;
-  markers: Marker[];
-  isNuke: boolean;
-  nukeView: boolean;
-  onToggleNukeView: () => void;
-  imageAlt?: string;
-}) {
+  destinationPoints = [],
+  onDestinationClick,
+  lineupPoints = [],
+}: Props) => {
   const { getLineups } = useLineupsStore();
+  console.log("%cMapWithPoints RENDER", "color: #ff00ea");
 
   return (
     <div className="relative w-full aspect-[4/3]">
@@ -39,27 +45,31 @@ export default function MapWithPoints({
         </div>
       )}
       <Image
-        src={imageSrc}
-        alt={imageAlt}
+        src={mapImgUrl}
+        alt={""}
         fill
         priority
         className="object-contain"
       />
 
-      {/* Overlay parfaitement superposé à l'image */}
-      <div className="absolute inset-0 pointer-events-none">
-        {markers.map((marker) => {
+      <div className="absolute inset-0">
+        {destinationPoints.map((point) => {
           return (
             <div
-              key={marker.id}
+              key={point.uuid}
               className="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center"
               style={{
-                left: `${48}%`,
-                top: `${marker.y}%`,
+                left: `${point.x}%`,
+                top: `${point.y}%`,
               }}
             >
               <div>
-                <Image src={marker.image} width={35} height={35} alt="" />
+                <Image
+                  src={point.iconUrl ?? ""}
+                  width={35}
+                  height={35}
+                  alt=""
+                />
               </div>
             </div>
           );
@@ -67,4 +77,6 @@ export default function MapWithPoints({
       </div>
     </div>
   );
-}
+};
+
+export default MapWithPoints;

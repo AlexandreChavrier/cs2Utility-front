@@ -12,6 +12,7 @@ export type DestinationPoint = {
   label: string;
   x: number;
   y: number;
+  iconUrl: string;
 };
 
 export type UserResponse = {

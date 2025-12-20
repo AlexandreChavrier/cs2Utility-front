@@ -10,5 +10,5 @@ export function useSyncActionsType() {
     if (!isFetching && actionTypes.length === 0) {
       getActionTypes();
     }
-  }, []);
+  }, [isFetching, actionTypes.length, getActionTypes]);
 }

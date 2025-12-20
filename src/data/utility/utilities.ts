@@ -15,7 +15,7 @@ export const utilities = [
     iconUrl: "/assets/utilityIcons/flash.webp",
   },
   {
-    id: "grenade",
+    id: "he",
     name: "Grenades",
     iconUrl: "/assets/utilityIcons/grenade.webp",
   },

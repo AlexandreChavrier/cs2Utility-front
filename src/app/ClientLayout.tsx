@@ -5,6 +5,8 @@ import useAuthStore from "@/components/auth/store/useAuthStore";
 import Footer from "@/components/layout/footer/Footer";
 import Header from "@/components/layout/Header";
 import useMapsStore from "@/components/map/store/useMapsStore";
+import { useSyncActionsType } from "@/components/action/hooks/useSyncActionsType";
+import { useSyncMap } from "@/components/map/hooks/useSyncMap";
 
 export default function ClientLayout({
   children,
@@ -12,18 +14,12 @@ export default function ClientLayout({
   children: React.ReactNode;
 }) {
   const checkAuth = useAuthStore((state) => state.checkAuth);
-
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
 
-  const { maps, isFetching, getActiveMaps } = useMapsStore();
-
-  useEffect(() => {
-    if (!isFetching && maps.length === 0) {
-      getActiveMaps();
-    }
-  }, []);
+  useSyncActionsType();
+  useSyncMap();
 
   return (
     <>

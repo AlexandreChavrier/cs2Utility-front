@@ -1,12 +1,12 @@
-import { Actions } from "@/data/action/actions.enum";
-import { Utilities } from "@/data/utility/utilities.enum";
 import apiClient from "@/lib/apiClient/axios";
-import { LineupResponse } from "@/lib/cs2utilityApi/apiResponses";
+import {
+  DestinationPoint,
+  LineupResponse,
+} from "@/lib/cs2utilityApi/apiResponses";
 import { ApiRoutes } from "@/lib/cs2utilityApi/apiRoutes";
 import { createAppStore } from "@/lib/store/createAppStore";
 
 export type Lineup = LineupResponse;
-export type DestinationPoint = {};
 
 type LineupState = {
   lineups: Lineup[];

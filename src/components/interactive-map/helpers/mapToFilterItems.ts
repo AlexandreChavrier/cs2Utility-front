@@ -1,4 +1,8 @@
+import { sides } from "@/data/side/sides";
 import { FilterItem } from "../components/FilterSection";
+import { utilities } from "@/data/utility/utilities";
+import useMapsStore from "@/components/map/store/useMapsStore";
+import useActionsStore from "@/components/action/store/useActionsStore";
 
 export function mapToFilterItems<
   T extends {
@@ -14,3 +18,6 @@ export function mapToFilterItems<
     icon: item.iconUrl,
   }));
 }
+
+export const teamsFilters = mapToFilterItems(sides);
+export const utilitiesFilters = mapToFilterItems(utilities);
