@@ -4,6 +4,7 @@ import useLineupsStore from "@/components/lineup/store/useLineupsStore";
 import FilterButton from "@/components/ui/buttons/FilterButton";
 import { DestinationPoint } from "@/lib/cs2utilityApi/apiResponses";
 import Image from "next/image";
+import { memo, useRef, useState } from "react";
 
 export type LineupPoint = {
   uuid: string;
@@ -22,61 +23,110 @@ interface Props {
   lineupPoints?: LineupPoint[];
 }
 
-const MapWithPoints = ({
-  mapImgUrl,
-  isNuke,
-  nukeView,
-  onToggleNukeView,
-  destinationPoints = [],
-  onDestinationClick,
-  lineupPoints = [],
-}: Props) => {
-  const { getLineups } = useLineupsStore();
-  console.log("%cMapWithPoints RENDER", "color: #ff00ea");
+const MapWithPoints = memo(
+  ({
+    mapImgUrl,
+    isNuke,
+    nukeView,
+    onToggleNukeView,
+    destinationPoints = [],
+    onDestinationClick,
+    lineupPoints = [],
+  }: Props) => {
+    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+    const imgRef = useRef<HTMLImageElement>(null);
 
-  return (
-    <div className="relative w-full aspect-[4/3]">
-      {isNuke && (
-        <div className="relative z-20">
-          <FilterButton
-            onClick={onToggleNukeView}
-            filterName={nukeView ? "Down" : "Up"}
-          />
-        </div>
-      )}
-      <Image
-        src={mapImgUrl}
-        alt={""}
-        fill
-        priority
-        className="object-contain"
-      />
+    console.log("console.log de isNuke", isNuke);
+    console.log("console.log de nukeView", nukeView);
+    // ✅ Handler pour récupérer les coordonnées au clic
+    const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
+      if (!imgRef.current) return;
 
-      <div className="absolute inset-0">
-        {destinationPoints.map((point) => {
-          return (
-            <div
-              key={point.uuid}
-              className="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center"
-              style={{
-                left: `${point.x}%`,
-                top: `${point.y}%`,
-              }}
-            >
-              <div>
-                <Image
-                  src={point.iconUrl ?? ""}
-                  width={35}
-                  height={35}
-                  alt=""
-                />
-              </div>
+      const rect = imgRef.current.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+      // Copie dans le clipboard
+      const coords = `x: ${x.toFixed(2)}, y: ${y.toFixed(2)}`;
+      navigator.clipboard.writeText(coords);
+
+      console.log(
+        `%c📍 Coordonnées copiées: ${coords}`,
+        "color: #00ff00; font-size: 16px; font-weight: bold"
+      );
+      console.log(`JSON: { x: ${x.toFixed(2)}, y: ${y.toFixed(2)} }`);
+    };
+
+    // ✅ Handler pour afficher les coordonnées au survol
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+      if (!imgRef.current) return;
+
+      const rect = imgRef.current.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+      setMousePos({ x, y });
+    };
+
+    return (
+      <div
+        className="relative w-full aspect-[4/3]"
+        onClick={handleMapClick} // ← AJOUT ICI
+        onMouseMove={handleMouseMove} // ← AJOUT ICI
+        style={{ cursor: "crosshair" }}
+      >
+        {true && (
+          <div className="absolute top-2 left-2 bg-black/80 text-green-400 px-3 py-2 rounded font-mono text-sm z-50">
+            x: {mousePos.x.toFixed(2)}% | y: {mousePos.y.toFixed(2)}%
+            <div className="text-xs text-neutral-400 mt-1">
+              Cliquez pour copier
             </div>
-          );
-        })}
+          </div>
+        )}
+        {isNuke && (
+          <div className="relative z-20">
+            <FilterButton
+              isActive={nukeView}
+              onClick={onToggleNukeView}
+              filterName={nukeView ? "Down" : "Up"}
+            />
+          </div>
+        )}
+        <Image
+          ref={imgRef}
+          src={mapImgUrl}
+          alt={""}
+          fill
+          priority
+          className="object-contain"
+        />
+
+        <div className="absolute inset-0">
+          {destinationPoints.map((point) => {
+            return (
+              <div
+                key={point.uuid}
+                className="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center scale-75 sm:scale-85 md:scale-95 lg:scale-100 transition-transform duration-200"
+                style={{
+                  left: `${point.x}%`,
+                  top: `${point.y}%`,
+                }}
+              >
+                <div>
+                  <Image
+                    src={point.iconUrl ?? ""}
+                    width={38}
+                    height={38}
+                    alt=""
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+);
 
 export default MapWithPoints;

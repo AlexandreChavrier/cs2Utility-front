@@ -12,7 +12,7 @@ export default function MapPage() {
     return (
       <main>
         <section className="flex flex-col items-center pb-32 pt-12">
-          <MapSection image={currentMap.radarUrl} />
+          <MapSection radarMapImage={currentMap.radarUrl} />
         </section>
       </main>
     );

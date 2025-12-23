@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { memo, ReactNode } from "react";
 import FilterButton from "../../ui/buttons/FilterButton";
 
 export type FilterItem = {
@@ -14,30 +14,25 @@ interface Props {
   activeFilterId?: string;
 }
 
-const FilterSection = ({
-  title,
-  filters,
-  onFilterClick,
-  activeFilterId,
-}: Props) => {
-  console.log("%cFilterSection RENDER — " + title, "color: #ffa500");
-
-  return (
-    <div className="flex flex-col gap-3">
-      <h2 className="text-base font-semibold">{title}</h2>
-      <div className="flex flex-wrap gap-2">
-        {filters.map((filter, index) => (
-          <FilterButton
-            key={`${title}-${filter.filterName}-${index}`}
-            filterName={filter.filterName}
-            icon={filter.icon}
-            isActive={activeFilterId === filter.id}
-            onClick={() => onFilterClick?.(filter.id || filter.filterName)}
-          />
-        ))}
+const FilterSection = memo(
+  ({ title, filters, onFilterClick, activeFilterId }: Props) => {
+    return (
+      <div className="flex flex-col gap-3">
+        <h2 className="text-base font-semibold">{title}</h2>
+        <div className="flex flex-wrap gap-2">
+          {filters.map((filter, index) => (
+            <FilterButton
+              key={`${title}-${filter.filterName}-${index}`}
+              filterName={filter.filterName}
+              icon={filter.icon}
+              isActive={activeFilterId === filter.id}
+              onClick={() => onFilterClick?.(filter.id || filter.filterName)}
+            />
+          ))}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+);
 
 export default FilterSection;

@@ -1,3 +1,5 @@
+import { FilterItem } from "@/components/interactive-map/components/FilterSection";
+import { mapToFilterItems } from "@/components/interactive-map/helpers/mapToFilterItems";
 import { Actions } from "@/data/action/actions.enum";
 import apiClient from "@/lib/apiClient/axios";
 import {
@@ -13,6 +15,7 @@ export type ActionType = ActionTypeResponse;
 type ActionState = {
   actions: Action[];
   actionTypes: ActionType[];
+  actionTypeFilters: FilterItem[];
   isFetching: boolean;
   hasError: boolean;
 };
@@ -20,6 +23,7 @@ type ActionState = {
 const initialState: ActionState = {
   actions: [],
   actionTypes: [],
+  actionTypeFilters: [],
   isFetching: false,
   hasError: false,
 };
@@ -73,10 +77,13 @@ const useActionsStore = createAppStore<ActionsStore>("actions", (set, get) => ({
 
       const actionTypes = response.data;
 
+      const actionTypeFilters = mapToFilterItems(actionTypes);
+
       set({
         isFetching: false,
         hasError: false,
         actionTypes: actionTypes,
+        actionTypeFilters,
       });
     } catch (error) {
       console.error(error);
