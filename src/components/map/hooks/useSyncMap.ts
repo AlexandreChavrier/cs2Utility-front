@@ -31,6 +31,6 @@ export function useSyncMap() {
       setCurrentMap,
       isOnMapPage,
     }),
-    [currentMap, isOnMapPage]
+    [currentMap, isOnMapPage, setCurrentMap]
   );
 }

@@ -1,16 +1,16 @@
 export const sides = [
   {
-    id: "both",
+    id: "any",
     name: "Any",
     iconUrl: "/assets/sideIcons/both.webp",
   },
   {
-    id: "T",
+    id: "t",
     name: "T",
     iconUrl: "/assets/sideIcons/t.webp",
   },
   {
-    id: "CT",
+    id: "ct",
     name: "CT",
     iconUrl: "/assets/sideIcons/ct.webp",
   },

@@ -1,8 +1,8 @@
 "use client";
 
 import FilterSection from "./components/FilterSection";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 import useLineupsStore from "../lineup/store/useLineupsStore";
 import useMapsStore from "../map/store/useMapsStore";
 import { useSyncMap } from "../map/hooks/useSyncMap";
@@ -12,8 +12,8 @@ import { teamsFilters, utilitiesFilters } from "./helpers/mapToFilterItems";
 import { useDisplayRadarImage } from "./hooks/useDisplayRadarImage";
 import { useMapHeight } from "./hooks/useMapHeight";
 import { useFilterHandlers } from "./hooks/useFilterHandlers";
-
-const noOpHandler = () => {};
+import { useFilteredMapData } from "./hooks/useFilteredMapData";
+import { useMapDataFetching } from "./hooks/useMapDataFetching";
 
 const MapSection = ({
   radarMapImage,
@@ -22,38 +22,32 @@ const MapSection = ({
   radarMapImage: string;
   activeUtility?: string;
 }) => {
-  const [selectedDestination, setSelectedDestination] = useState<string | null>(
-    null
-  );
-  const [selectedLineup, setSelectedLineup] = useState<string | null>(null);
-
   const pathname = usePathname();
   const isNuke = pathname.includes("nuke");
 
-  const { actionTypeFilters } = useActionsStore();
   const { mapFilters } = useMapsStore();
   const { currentMap } = useSyncMap();
-  const { getLineups, clearLineups, destinationPoints } = useLineupsStore();
+  const { actionTypeFilters } = useActionsStore();
 
-  const { handleMapClick, handleUtilityClick } = useFilterHandlers(
-    currentMap?.id,
-    activeUtility
-  );
+  const { destinationPoints, filters } = useFilteredMapData({
+    activeUtility,
+  });
 
   const { displayImage, nukeView, toggleNukeView } = useDisplayRadarImage(
     isNuke,
     radarMapImage
   );
   const { mapHeight, mapRef } = useMapHeight();
+  const {
+    handleMapClick,
+    handleUtilityClick,
+    handleSideClick,
+    handleActionTypeClick,
+  } = useFilterHandlers(currentMap?.id, activeUtility);
 
-  useEffect(() => {
-    if (currentMap?.id && activeUtility) {
-      getLineups({ map: currentMap.id, type: activeUtility });
-    } else if (currentMap?.id && !activeUtility) {
-      clearLineups();
-    }
-    setSelectedDestination(null);
-  }, [currentMap?.id, activeUtility]);
+  useMapDataFetching({ mapId: currentMap?.id, activeUtility });
+
+  const hasActiveActions = filters.actions.length > 0;
 
   return (
     <div className="w-full max-w-[75%] flex flex-col lg:flex-row lg:items-start gap-8 rounded-2xl p-8 mx-auto">
@@ -66,7 +60,9 @@ const MapSection = ({
         <FilterSection
           filters={teamsFilters}
           title="Equipes"
-          onFilterClick={noOpHandler}
+          onFilterClick={handleSideClick}
+          activeFilterId={hasActiveActions ? undefined : filters.side}
+          disabled={hasActiveActions}
         />
         <FilterSection
           filters={utilitiesFilters}
@@ -77,12 +73,14 @@ const MapSection = ({
         <FilterSection
           filters={actionTypeFilters}
           title="Actions en jeu"
-          onFilterClick={noOpHandler}
+          onFilterClick={handleActionTypeClick}
+          activeFilterId={filters.actions}
         />
         <FilterSection
           filters={mapFilters}
           title="Cartes"
           onFilterClick={handleMapClick}
+          activeFilterId={currentMap?.id}
         />
       </div>
 
@@ -92,7 +90,7 @@ const MapSection = ({
         className="flex-1 w-full bg-neutral-900 border border-neutral-800 rounded-md p-2"
       >
         <MapWithPoints
-          mapImgUrl={displayImage()}
+          mapImgUrl={displayImage}
           destinationPoints={destinationPoints}
           isNuke={isNuke}
           nukeView={nukeView}

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import useClickOutside from "@/utils/hooks/useHandleClickOutside";
 import React, { useRef, useState } from "react";
@@ -9,21 +9,26 @@ interface AuthentificationModalProps {
   onClose?: () => void;
 }
 
-const AuthentificationModal = ({ isOpen, onClose }: AuthentificationModalProps) => {
+const AuthentificationModal = ({
+  isOpen,
+  onClose,
+}: AuthentificationModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const { login, isLoading } = useAuthStore();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    login({email: email, password: password})
-    onClose?.()
-  }
+    login({ email: email, password: password });
+    onClose?.();
+  };
 
-  useClickOutside(modalRef, () => { return });
+  useClickOutside(modalRef, () => {
+    return;
+  });
 
   return (
     <>
@@ -44,7 +49,9 @@ const AuthentificationModal = ({ isOpen, onClose }: AuthentificationModalProps) 
             {/* Header */}
             <div className="px-8 pt-8 pb-6 border-b border-neutral-800">
               <h2 className="text-2xl font-bold text-white">Sign In</h2>
-              <p className="text-neutral-400 text-sm mt-1">Welcome back! Please enter your details.</p>
+              <p className="text-neutral-400 text-sm mt-1">
+                Welcome back! Please enter your details.
+              </p>
             </div>
             <form onSubmit={handleSubmit} className="px-8 py-6 space-y-5">
               <div>
@@ -97,12 +104,12 @@ const AuthentificationModal = ({ isOpen, onClose }: AuthentificationModalProps) 
                 disabled={isLoading}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-neutral-1000"
               >
-                {isLoading ? 'Signing In...' : 'Sign In'}
+                {isLoading ? "Signing In..." : "Sign In"}
               </button>
 
               <div className="text-center pt-4 border-t border-neutral-800">
                 <span className="text-neutral-400 text-sm">
-                  Don't have an account yet?{' '}
+                  Don&apos;t have an account yet?{" "}
                   <a
                     href="#"
                     className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
@@ -117,6 +124,6 @@ const AuthentificationModal = ({ isOpen, onClose }: AuthentificationModalProps) 
       )}
     </>
   );
-}
+};
 
 export default AuthentificationModal;

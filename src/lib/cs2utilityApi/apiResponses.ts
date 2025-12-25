@@ -43,7 +43,21 @@ export type LineupResponse = {
   updatedAt: string;
 };
 
-export type ActionResponse = {};
+export type ActionResponse = {
+  uuid: string;
+  title: string;
+  mapId: string;
+  fromX: number;
+  fromY: number;
+  destinationPoint: DestinationPoint;
+  side: Side;
+  imageUrl: string;
+  videoUrl: string;
+  thumbnailUrl: string;
+  instructions: string;
+  createdAt: string;
+  updatedAt: string;
+};
 
 export type ActionTypeResponse = {
   id: string;

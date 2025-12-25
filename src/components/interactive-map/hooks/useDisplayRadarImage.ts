@@ -7,14 +7,11 @@ export const useDisplayRadarImage = (isNuke: boolean, defaultImage: string) => {
     setNukeView((prev) => !prev);
   }, []);
 
-  const displayImage = useCallback(() => {
-    if (isNuke) {
-      return nukeView
-        ? "/assets/maps/nuke/radar-down.webp"
-        : "/assets/maps/nuke/radar-up.webp";
-    }
-    return defaultImage;
-  }, [isNuke, nukeView, defaultImage]);
+  const displayImage = isNuke
+    ? nukeView
+      ? "/assets/maps/nuke/radar-down.webp"
+      : "/assets/maps/nuke/radar-up.webp"
+    : defaultImage;
 
   return { nukeView, toggleNukeView, displayImage };
 };

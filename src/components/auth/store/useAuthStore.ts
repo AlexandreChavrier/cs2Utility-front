@@ -3,7 +3,6 @@ import { UserResponse } from "@/lib/cs2utilityApi/apiResponses";
 import { ApiRoutes } from "@/lib/cs2utilityApi/apiRoutes";
 import { createAppStore } from "@/lib/store/createAppStore";
 
-
 export type User = UserResponse;
 
 type AuthState = {
@@ -11,34 +10,43 @@ type AuthState = {
   isLoading: boolean;
   isAuthenticated: boolean;
   hasError: boolean;
-}
+};
 
 const initialState: AuthState = {
   user: null,
   isLoading: false,
   isAuthenticated: false,
   hasError: false,
-}
+};
 
 type AuthActions = {
-  login: ({ email, password }: {
-    email: string,
-    password: string,
+  login: ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
   }) => Promise<void>;
-  register: ({ firstName, lastName, email, password, confirmPassword }: {
+  register: ({
+    firstName,
+    lastName,
+    email,
+    password,
+    confirmPassword,
+  }: {
     firstName: string;
     lastName: string;
     email: string;
     password: string;
     confirmPassword: string;
   }) => Promise<void>;
-  logout: () => Promise<{ userFullName: string, message: string } | undefined>;
+  logout: () => Promise<{ userFullName: string; message: string } | undefined>;
   checkAuth: () => Promise<void>;
-}
+};
 
 export type AuthStore = AuthState & AuthActions;
 
-const useAuthStore = createAppStore<AuthStore>('auth', (set, get) => ({
+const useAuthStore = createAppStore<AuthStore>("auth", (set) => ({
   ...initialState,
   async login({ email, password }) {
     try {
@@ -46,7 +54,7 @@ const useAuthStore = createAppStore<AuthStore>('auth', (set, get) => ({
         isLoading: true,
         hasError: false,
         isAuthenticated: false,
-        user: null
+        user: null,
       });
 
       const response = await apiClient.post<UserResponse>(ApiRoutes.LOGIN, {
@@ -55,30 +63,39 @@ const useAuthStore = createAppStore<AuthStore>('auth', (set, get) => ({
       });
 
       const userLogedIn = response.data;
-      console.log(userLogedIn)
+      console.log(userLogedIn);
 
       set({
         user: userLogedIn,
         isLoading: false,
         hasError: false,
         isAuthenticated: true,
-      })
-
+      });
     } catch (error) {
       console.error(error);
-      set({ hasError: true, isLoading: false, isAuthenticated: false, user: null })
+      set({
+        hasError: true,
+        isLoading: false,
+        isAuthenticated: false,
+        user: null,
+      });
     }
   },
   async register({ confirmPassword, email, firstName, lastName, password }) {
     try {
-      set({ isLoading: true, isAuthenticated: false, hasError: false, user: null })
+      set({
+        isLoading: true,
+        isAuthenticated: false,
+        hasError: false,
+        user: null,
+      });
 
       const response = await apiClient.post<UserResponse>(ApiRoutes.REGISTER, {
         firstName,
         lastName,
         email,
         password,
-        confirmPassword
+        confirmPassword,
       });
 
       const userRegistered = response.data;
@@ -87,22 +104,29 @@ const useAuthStore = createAppStore<AuthStore>('auth', (set, get) => ({
         isLoading: false,
         user: userRegistered,
         isAuthenticated: true,
-        hasError: false
+        hasError: false,
       });
-
     } catch (error) {
       console.error(error);
-      set({ hasError: true, isLoading: false, isAuthenticated: false, user: null })
+      set({
+        hasError: true,
+        isLoading: false,
+        isAuthenticated: false,
+        user: null,
+      });
     }
   },
   async logout() {
     try {
       set({
         isLoading: true,
-        hasError: false
+        hasError: false,
       });
 
-      const response = await apiClient.post<{ userFullName: string, message: string }>(ApiRoutes.LOGOUT);
+      const response = await apiClient.post<{
+        userFullName: string;
+        message: string;
+      }>(ApiRoutes.LOGOUT);
 
       const userLogedOut = response.data;
 
@@ -110,29 +134,27 @@ const useAuthStore = createAppStore<AuthStore>('auth', (set, get) => ({
         user: null,
         isAuthenticated: false,
         isLoading: false,
-        hasError: false
+        hasError: false,
       });
 
       return userLogedOut;
-
     } catch (error) {
       console.error(error);
       set({
         hasError: true,
         isAuthenticated: false,
         isLoading: false,
-        user: null
+        user: null,
       });
     }
   },
   async checkAuth() {
     try {
-
       set({ isLoading: true, hasError: false });
 
       const response = await apiClient.get<UserResponse>(ApiRoutes.PROFILE);
 
-      const currentUser = response.data
+      const currentUser = response.data;
 
       set({
         user: currentUser,
@@ -140,10 +162,8 @@ const useAuthStore = createAppStore<AuthStore>('auth', (set, get) => ({
         isLoading: false,
         hasError: false,
       });
-
-
     } catch (error) {
-      console.log('No valid session found');
+      console.log(error);
       set({
         user: null,
         isAuthenticated: false,
@@ -152,7 +172,6 @@ const useAuthStore = createAppStore<AuthStore>('auth', (set, get) => ({
       });
     }
   },
-
-}))
+}));
 
 export default useAuthStore;

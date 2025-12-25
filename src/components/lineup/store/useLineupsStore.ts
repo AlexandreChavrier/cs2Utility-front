@@ -23,27 +23,32 @@ const initialState: LineupState = {
 };
 
 type LineupActions = {
-  getLineups: ({ map, type }: { map: string; type: string }) => Promise<void>;
+  getLineups: ({
+    map,
+    utilityType,
+  }: {
+    map: string;
+    utilityType: string;
+  }) => Promise<void>;
   clearLineups: () => Promise<void>;
 };
 
 export type LineupsStore = LineupState & LineupActions;
 
-const useLineupsStore = createAppStore<LineupsStore>("lineups", (set, get) => ({
+const useLineupsStore = createAppStore<LineupsStore>("lineups", (set) => ({
   ...initialState,
-  async getLineups({ map, type }) {
+  async getLineups({ map, utilityType }) {
     try {
       set({ isFetching: true, hasError: false });
 
       const response = await apiClient.get<Lineup[]>(ApiRoutes.LINEUPS, {
         params: {
-          map: map,
-          type: type,
+          map,
+          type: utilityType,
         },
       });
 
       const lineups = response.data;
-      console.log("lineups du store", lineups);
 
       const destinationsMap = new Map<string, DestinationPoint>();
       lineups.forEach((lineup) => {
@@ -56,7 +61,6 @@ const useLineupsStore = createAppStore<LineupsStore>("lineups", (set, get) => ({
       });
 
       const destinationsPoints = Array.from(destinationsMap.values());
-      console.log("destinationsPoints du store", destinationsPoints);
 
       set({
         isFetching: false,

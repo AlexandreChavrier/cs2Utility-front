@@ -1,21 +1,30 @@
 import { useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { useFilters } from "./useFilters";
 
 export const useFilterHandlers = (
   currentMapId: string | undefined,
   activeUtility: string | undefined
 ) => {
   const router = useRouter();
+  const { setSideFilters, toggleActionFilters } = useFilters();
 
   const handleUtilityClick = useCallback(
     (utilityId: string) => {
       if (activeUtility === utilityId) {
         router.push(`/${currentMapId}`, { scroll: false });
       } else {
-        router.push(`/${currentMapId}/${utilityId}`, { scroll: false });
+        router.push(`/${currentMapId}/utility/${utilityId}`, { scroll: false });
       }
     },
     [activeUtility, currentMapId, router]
+  );
+
+  const handleActionTypeClick = useCallback(
+    (actionTypeId: string) => {
+      toggleActionFilters(actionTypeId, currentMapId);
+    },
+    [toggleActionFilters]
   );
 
   const handleMapClick = useCallback(
@@ -25,5 +34,17 @@ export const useFilterHandlers = (
     [router]
   );
 
-  return { handleUtilityClick, handleMapClick };
+  const handleSideClick = useCallback(
+    (sideId: string) => {
+      setSideFilters(sideId);
+    },
+    [setSideFilters]
+  );
+
+  return {
+    handleUtilityClick,
+    handleMapClick,
+    handleSideClick,
+    handleActionTypeClick,
+  };
 };

@@ -1,6 +1,5 @@
 "use client";
 
-import useLineupsStore from "@/components/lineup/store/useLineupsStore";
 import FilterButton from "@/components/ui/buttons/FilterButton";
 import { DestinationPoint } from "@/lib/cs2utilityApi/apiResponses";
 import Image from "next/image";
@@ -36,8 +35,6 @@ const MapWithPoints = memo(
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
     const imgRef = useRef<HTMLImageElement>(null);
 
-    console.log("console.log de isNuke", isNuke);
-    console.log("console.log de nukeView", nukeView);
     // ✅ Handler pour récupérer les coordonnées au clic
     const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
       if (!imgRef.current) return;

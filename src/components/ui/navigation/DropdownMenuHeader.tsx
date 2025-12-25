@@ -1,8 +1,7 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useRef, useState } from "react";
 import MenuIcon from "../icons/MenuIcon";
 import Image from "next/image";
 import Link from "next/link";
-import { GameMap } from "@/data/maps";
 import useClickOutside from "@/utils/hooks/useHandleClickOutside";
 import useMapsStore from "@/components/map/store/useMapsStore";
 

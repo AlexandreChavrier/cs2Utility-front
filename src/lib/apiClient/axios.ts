@@ -1,12 +1,15 @@
-import axios from 'axios';
-import { ApiRoutes } from '../cs2utilityApi/apiRoutes';
+import axios from "axios";
+import { ApiRoutes } from "../cs2utilityApi/apiRoutes";
 
 // Configuration de base
 const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true, // permet l'envoi des cookies httpOnly
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
+  },
+  paramsSerializer: {
+    indexes: null, // Pour avoir actionTypes[]=Boost au lieu de actionTypes[0]=Boost
   },
 });
 
@@ -65,8 +68,8 @@ apiClient.interceptors.response.use(
         processQueue(refreshError, null);
 
         // Si le refresh échoue, rediriger vers la page de login
-        if (typeof window !== 'undefined') {
-          window.location.href = '/login';
+        if (typeof window !== "undefined") {
+          window.location.href = "/login";
         }
 
         return Promise.reject(refreshError);

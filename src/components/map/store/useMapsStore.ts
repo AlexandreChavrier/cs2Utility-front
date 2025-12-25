@@ -1,8 +1,7 @@
 import { FilterItem } from "@/components/interactive-map/components/FilterSection";
 import { mapToFilterItems } from "@/components/interactive-map/helpers/mapToFilterItems";
-import { Actions } from "@/data/action/actions.enum";
 import apiClient from "@/lib/apiClient/axios";
-import { LineupResponse, MapResponse } from "@/lib/cs2utilityApi/apiResponses";
+import { MapResponse } from "@/lib/cs2utilityApi/apiResponses";
 import { ApiRoutes } from "@/lib/cs2utilityApi/apiRoutes";
 import { createAppStore } from "@/lib/store/createAppStore";
 
@@ -28,7 +27,7 @@ type MapActions = {
 
 export type MapsStore = MapState & MapActions;
 
-const useMapsStore = createAppStore<MapsStore>("maps", (set, get) => ({
+const useMapsStore = createAppStore<MapsStore>("maps", (set) => ({
   ...initialState,
   async getActiveMaps() {
     try {
