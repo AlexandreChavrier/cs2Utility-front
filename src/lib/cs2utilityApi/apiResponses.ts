@@ -15,6 +15,12 @@ export type DestinationPoint = {
   iconUrl: string;
 };
 
+export type IntermediatePoint = {
+  x: number;
+  y: number;
+  order: number;
+};
+
 export type UserResponse = {
   uuid: string;
   email: string;
@@ -34,6 +40,7 @@ export type LineupResponse = {
   throwFromX: number;
   throwFromY: number;
   destinationPoint: DestinationPoint;
+  intermediatePoints?: IntermediatePoint[];
   side: string;
   iconUrl: string;
   imageUrl: string;

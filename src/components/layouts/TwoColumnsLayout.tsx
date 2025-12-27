@@ -1,13 +1,19 @@
+import { useMapHeight } from "../interactive-map/hooks/overlay/useMapHeight";
+
 interface Props {
   leftColumn: React.ReactNode;
   rightColumn: React.ReactNode;
-  mapRef?: React.RefObject<HTMLDivElement | null>;
 }
 
-const TwoColumnsLayout = ({ leftColumn, rightColumn, mapRef }: Props) => {
+const TwoColumnsLayout = ({ leftColumn, rightColumn }: Props) => {
+  const { mapHeight, mapRef } = useMapHeight();
+
   return (
     <div className="w-full max-w-[75%] flex flex-col lg:flex-row lg:items-start gap-8 rounded-2xl p-8 mx-auto">
-      <div className="lg:basis-[25%] lg:max-w-[500px] w-full flex flex-col gap-6 overflow-y-auto pr-2 scrollbar-thin">
+      <div
+        className="lg:basis-[25%] lg:max-w-[500px] w-full flex flex-col gap-6 overflow-y-auto pr-2 scrollbar-thin"
+        style={{ maxHeight: mapHeight > 0 ? `${mapHeight}px` : "auto" }}
+      >
         {leftColumn}
       </div>
       <div

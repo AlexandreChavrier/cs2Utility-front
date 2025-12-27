@@ -47,7 +47,6 @@ const MapSection = ({
     isNuke,
     radarMapImage
   );
-  const { mapHeight, mapRef } = useMapHeight();
   const {
     handleMapClick,
     handleUtilityClick,
@@ -121,7 +120,6 @@ const MapSection = ({
           />
         </>
       }
-      mapRef={mapRef}
     />
   );
 };

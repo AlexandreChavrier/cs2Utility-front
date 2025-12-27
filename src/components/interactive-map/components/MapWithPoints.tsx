@@ -72,23 +72,21 @@ const MapWithPoints = memo(
       (p) => p.uuid === selectedDestinationId
     );
 
-    console.log("lineupPoints", lineupPoints);
-
     return (
       <div
         className="relative w-full aspect-[4/3]"
-        // onClick={handleMapClick} // ← AJOUT ICI
-        // onMouseMove={handleMouseMove} // ← AJOUT ICI
-        // style={{ cursor: "crosshair" }}
+        onClick={handleMapClick} // ← AJOUT ICI
+        onMouseMove={handleMouseMove} // ← AJOUT ICI
+        style={{ cursor: "crosshair" }}
       >
-        {/* {true && (
+        {true && (
           <div className="absolute top-2 left-2 bg-black/80 text-green-400 px-3 py-2 rounded font-mono text-sm z-50">
             x: {mousePos.x.toFixed(2)}% | y: {mousePos.y.toFixed(2)}%
             <div className="text-xs text-neutral-400 mt-1">
               Cliquez pour copier
             </div>
           </div>
-        )} */}
+        )}
         {selectedDestinationId && (
           <button className="relative z-20" onClick={onBackClick}>
             <Image
@@ -118,27 +116,36 @@ const MapWithPoints = memo(
         />
 
         {selectedDestination && lineupPoints.length > 0 && (
-          <svg className="absolute inset-0 w-full h-full pointer-events-none">
-            {lineupPoints.map((lineup) => (
-              <line
-                key={`line-${lineup.uuid}`}
-                x1={`${lineup.throwFromX}%`}
-                y1={`${lineup.throwFromY}%`}
-                x2={`${selectedDestination.x}%`}
-                y2={`${selectedDestination.y}%`}
-                stroke={
-                  lineup.side === "t"
-                    ? "#D6C68A"
-                    : lineup.side === "ct"
-                    ? "#4A9EFF"
-                    : "#9CA3AF"
-                }
-                strokeWidth="2"
-                strokeDasharray="5,5"
-                opacity="0.6"
-                strokeLinecap="round"
-              />
-            ))}
+          <svg
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+          >
+            {lineupPoints.map((lineup) => {
+              const points = [
+                { x: lineup.throwFromX, y: lineup.throwFromY },
+                ...(lineup.intermediatePoints?.map((point) => ({
+                  x: point.x,
+                  y: point.y,
+                })) ?? []),
+                { x: selectedDestination.x, y: selectedDestination.y },
+              ];
+
+              const pointsString = points
+                .map((point) => `${point.x},${point.y}`)
+                .join(" ");
+              return (
+                <polyline
+                  key={`line-${lineup.uuid}`}
+                  points={pointsString}
+                  stroke={lineup.side === "t" ? "#D6C68A" : "#9CA3AF"}
+                  strokeWidth="0.2"
+                  strokeDasharray="1.2"
+                  opacity="0.6"
+                  fill="none"
+                />
+              );
+            })}
           </svg>
         )}
 
@@ -152,7 +159,13 @@ const MapWithPoints = memo(
                   left: `${point.x}%`,
                   top: `${point.y}%`,
                 }}
-                onClick={() => onDestinationClick?.(point.uuid)}
+                onClick={() => {
+                  if (lineupPoints.length > 0) {
+                    onBackClick?.();
+                  } else {
+                    onDestinationClick?.(point.uuid);
+                  }
+                }}
               >
                 <div>
                   <Image
