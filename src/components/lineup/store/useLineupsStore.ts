@@ -10,14 +10,12 @@ export type Lineup = LineupResponse;
 
 type LineupState = {
   lineups: Lineup[];
-  destinationPoints: DestinationPoint[];
   isFetching: boolean;
   hasError: boolean;
 };
 
 const initialState: LineupState = {
   lineups: [],
-  destinationPoints: [],
   isFetching: false,
   hasError: false,
 };
@@ -50,23 +48,10 @@ const useLineupsStore = createAppStore<LineupsStore>("lineups", (set) => ({
 
       const lineups = response.data;
 
-      const destinationsMap = new Map<string, DestinationPoint>();
-      lineups.forEach((lineup) => {
-        if (!destinationsMap.has(lineup.destinationPoint.uuid)) {
-          destinationsMap.set(
-            lineup.destinationPoint.uuid,
-            lineup.destinationPoint
-          );
-        }
-      });
-
-      const destinationsPoints = Array.from(destinationsMap.values());
-
       set({
         isFetching: false,
         hasError: false,
         lineups: lineups,
-        destinationPoints: destinationsPoints,
       });
     } catch (error) {
       console.error(error);
@@ -77,7 +62,6 @@ const useLineupsStore = createAppStore<LineupsStore>("lineups", (set) => ({
   async clearLineups() {
     set({
       lineups: [],
-      destinationPoints: [],
       hasError: false,
     });
   },

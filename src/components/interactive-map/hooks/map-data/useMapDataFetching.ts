@@ -1,7 +1,7 @@
 import useActionsStore from "@/components/action/store/useActionsStore";
 import useLineupsStore from "@/components/lineup/store/useLineupsStore";
 import { useEffect } from "react";
-import { useFilters } from "./useFilters";
+import { useFilters } from "../filters/useFilters";
 
 interface Props {
   mapId: string | undefined;

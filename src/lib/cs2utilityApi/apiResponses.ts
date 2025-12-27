@@ -34,7 +34,8 @@ export type LineupResponse = {
   throwFromX: number;
   throwFromY: number;
   destinationPoint: DestinationPoint;
-  side: Side;
+  side: string;
+  iconUrl: string;
   imageUrl: string;
   videoUrl: string;
   thumbnailUrl: string;
