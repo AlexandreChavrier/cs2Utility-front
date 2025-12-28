@@ -1,15 +1,14 @@
 "use client";
 
 import FilterButton from "@/components/ui/buttons/FilterButton";
-import Arrow from "@/components/ui/icons/Arrow";
 import {
   DestinationPoint,
   LineupResponse,
 } from "@/lib/cs2utilityApi/apiResponses";
 import Image from "next/image";
 import { memo, useRef, useState } from "react";
-import { useSelectedDestination } from "../hooks/map-data/useSelectedDestination";
-import { Side } from "@/data/side/side.enum";
+import { MapPoint } from "./MapPoint";
+import { usePathname, useRouter } from "next/navigation";
 
 interface Props {
   mapImgUrl: string;
@@ -35,6 +34,9 @@ const MapWithPoints = memo(
     onBackClick,
     lineupPoints = [],
   }: Props) => {
+    const router = useRouter();
+    const pathname = usePathname();
+
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
     const imgRef = useRef<HTMLImageElement>(null);
 
@@ -148,17 +150,16 @@ const MapWithPoints = memo(
             })}
           </svg>
         )}
-
         <div className="absolute inset-0">
           {destinationPoints.map((point) => {
             return (
-              <button
+              <MapPoint
                 key={point.uuid}
-                className="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center scale-75 sm:scale-85 md:scale-95 lg:scale-100 transition-transform duration-200"
-                style={{
-                  left: `${point.x}%`,
-                  top: `${point.y}%`,
-                }}
+                uuid={point.uuid}
+                x={point.x}
+                y={point.y}
+                iconUrl={point.iconUrl}
+                iconSize={38}
                 onClick={() => {
                   if (lineupPoints.length > 0) {
                     onBackClick?.();
@@ -166,37 +167,22 @@ const MapWithPoints = memo(
                     onDestinationClick?.(point.uuid);
                   }
                 }}
-              >
-                <div>
-                  <Image
-                    src={point.iconUrl ?? ""}
-                    width={38}
-                    height={38}
-                    alt=""
-                  />
-                </div>
-              </button>
+              />
             );
           })}
           {lineupPoints.map((point) => {
             return (
-              <button
+              <MapPoint
                 key={point.uuid}
-                className="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center scale-75 sm:scale-85 md:scale-95 lg:scale-100 transition-transform duration-200"
-                style={{
-                  left: `${point.throwFromX}%`,
-                  top: `${point.throwFromY}%`,
+                uuid={point.uuid}
+                x={point.throwFromX}
+                y={point.throwFromY}
+                iconUrl={point.iconUrl}
+                iconSize={24}
+                onClick={() => {
+                  router.push(`${pathname}/lineup/${point.uuid}`);
                 }}
-              >
-                <div>
-                  <Image
-                    src={point.iconUrl ?? ""}
-                    width={24}
-                    height={24}
-                    alt=""
-                  />
-                </div>
-              </button>
+              />
             );
           })}
         </div>
