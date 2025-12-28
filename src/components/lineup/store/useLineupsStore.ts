@@ -9,13 +9,13 @@ import { createAppStore } from "@/lib/store/createAppStore";
 export type Lineup = LineupResponse;
 
 type LineupState = {
-  lineups: Lineup[];
+  lineups: Record<string, Lineup>;
   isFetching: boolean;
   hasError: boolean;
 };
 
 const initialState: LineupState = {
-  lineups: [],
+  lineups: {},
   isFetching: false,
   hasError: false,
 };
@@ -47,11 +47,18 @@ const useLineupsStore = createAppStore<LineupsStore>("lineups", (set) => ({
       });
 
       const lineups = response.data;
+      const formattedLineups = lineups.reduce(
+        (acc: Record<string, Lineup>, lineup) => {
+          acc[lineup.uuid] = lineup;
+          return acc;
+        },
+        {}
+      );
 
       set({
         isFetching: false,
         hasError: false,
-        lineups: lineups,
+        lineups: formattedLineups,
       });
     } catch (error) {
       console.error(error);
@@ -61,7 +68,7 @@ const useLineupsStore = createAppStore<LineupsStore>("lineups", (set) => ({
 
   async clearLineups() {
     set({
-      lineups: [],
+      lineups: {},
       hasError: false,
     });
   },

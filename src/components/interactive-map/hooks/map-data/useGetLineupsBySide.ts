@@ -8,9 +8,11 @@ export const useGetLineupsBySide = () => {
 
   const lineupsBySide = useMemo(() => {
     if (filters.side && filters.side !== "any") {
-      return lineups.filter((lineup) => lineup.side === filters.side);
+      return Object.values(lineups).filter(
+        (lineup) => lineup.side === filters.side
+      );
     }
-    return lineups;
+    return Object.values(lineups);
   }, [lineups, filters.side]);
 
   return { lineupsBySide };
