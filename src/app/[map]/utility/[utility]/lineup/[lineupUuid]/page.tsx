@@ -11,7 +11,7 @@ export default function LineupDetailsPage() {
     return (
       <main>
         <section className="flex flex-col items-center pb-32 pt-12">
-          <DetailsSection />
+          <DetailsSection lineupUuid={lineupUuid} />
         </section>
       </main>
     );
