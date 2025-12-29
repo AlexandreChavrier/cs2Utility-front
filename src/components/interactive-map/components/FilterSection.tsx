@@ -26,7 +26,11 @@ const FilterSection = memo(
 
     return (
       <div className="flex flex-col gap-3">
-        <h2 className="text-base font-semibold">{title}</h2>
+        <h2
+          className={`${disabled ? "opacity-50" : ""} text-base font-semibold`}
+        >
+          {title}
+        </h2>
         <div className="flex flex-wrap gap-2">
           {filters.map((filter, index) => (
             <FilterButton

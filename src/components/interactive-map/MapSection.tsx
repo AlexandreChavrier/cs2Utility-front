@@ -16,6 +16,9 @@ import { useGetLineupPoints } from "./hooks/map-data/useGetLineupPoints";
 import { useMapDataFetching } from "./hooks/map-data/useMapDataFetching";
 import TwoColumnsLayout from "../layouts/TwoColumnsLayout";
 import { useSyncMap } from "@/hooks/useSyncMap";
+import useAuthStore from "../auth/store/useAuthStore";
+import { useDictionary } from "@/utils/providers/dictionaryProvider";
+import { upperFirst } from "lodash";
 
 const MapSection = ({
   radarMapImage,
@@ -26,6 +29,9 @@ const MapSection = ({
 }) => {
   const pathname = usePathname();
   const isNuke = pathname.includes("nuke");
+  const dictionary = useDictionary();
+
+  const { isAuthenticated } = useAuthStore();
 
   const { mapFilters } = useMapsStore();
   const { currentMap } = useSyncMap();
@@ -80,26 +86,27 @@ const MapSection = ({
           </h3>
           <FilterSection
             filters={teamsFilters}
-            title="Equipes"
+            title={upperFirst(dictionary.interactiveMap.teams)}
             onFilterClick={handleSideClick}
             activeFilterId={hasActiveActions ? undefined : filters.side}
             disabled={hasActiveActions}
           />
           <FilterSection
             filters={utilitiesFilters}
-            title="Utilitaires"
+            title={upperFirst(dictionary.interactiveMap.utilities)}
             onFilterClick={handleUtilityClick}
             activeFilterId={activeUtility}
           />
           <FilterSection
             filters={actionTypeFilters}
-            title="Actions en jeu"
+            title={upperFirst(dictionary.interactiveMap.actions)}
             onFilterClick={handleActionTypeClick}
             activeFilterId={filters.actions}
+            disabled={!isAuthenticated}
           />
           <FilterSection
             filters={mapFilters}
-            title="Cartes"
+            title={upperFirst(dictionary.interactiveMap.maps)}
             onFilterClick={handleMapClick}
             activeFilterId={currentMap?.id}
           />

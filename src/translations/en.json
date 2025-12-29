@@ -14,7 +14,16 @@
     "interactiveMap": "interactive map",
     "popularLineups": "popular lineups",
     "book": "book",
-    "login": "login"
+    "login": "login",
+    "logout": "logout",
+    "profile": "profile",
+    "like": "likes"
+  },
+  "interactiveMap": {
+    "actions": "actions in game",
+    "utilities": "utilities",
+    "maps": "maps",
+    "teams": "teams"
   }
 
 }

@@ -9,18 +9,21 @@ import { useState } from "react";
 import AuthentificationModal from "../auth/AuthentificationModal";
 import { useDictionary } from "@/utils/providers/dictionaryProvider";
 import { upperFirst } from "lodash";
+import useAuthStore from "../auth/store/useAuthStore";
+import { UserBadge } from "../user/UserBadge";
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const dictionary = useDictionary();
+  const { isAuthenticated, logout } = useAuthStore();
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
   return (
     <>
-      <header className="relative z-[999] w-full top-0 py-6 font-semibold backdrop-blur bg-neutral-900">
+      <header className="relative z-[30] w-full top-0 py-6 font-semibold backdrop-blur bg-neutral-900">
         <div className="w-full max-w-[70%] mx-auto px-4 md:px-6 lg:px-8">
           <nav className="flex items-center justify-between gap-6">
             <Link href="/" className="flex-shrink-0">
@@ -50,22 +53,16 @@ const Header = () => {
             </div>
 
             <div className="flex items-center gap-4">
-              <DefaultButton
-                onClick={openModal}
-                title={upperFirst(dictionary.header.login)}
-                variant="purple"
-                size="md"
-              />
-              <Link href="">
-                <div className="">
-                  <HeartIcon />
-                </div>
-              </Link>
-              <Link href="">
-                <div>
-                  <SunIcon />
-                </div>
-              </Link>
+              {isAuthenticated ? (
+                <UserBadge />
+              ) : (
+                <button
+                  className="text-body-sm text-neutral-white hover:text-primary-300 transition-colors duration-300"
+                  onClick={openModal}
+                >
+                  {upperFirst(dictionary.header.login)}
+                </button>
+              )}
             </div>
           </nav>
         </div>
