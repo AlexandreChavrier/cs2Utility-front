@@ -77,18 +77,18 @@ const MapWithPoints = memo(
     return (
       <div
         className="relative w-full aspect-[4/3]"
-        onClick={handleMapClick} // ← AJOUT ICI
-        onMouseMove={handleMouseMove} // ← AJOUT ICI
-        style={{ cursor: "crosshair" }}
+        // onClick={handleMapClick} // ← AJOUT ICI
+        // onMouseMove={handleMouseMove} // ← AJOUT ICI
+        // style={{ cursor: "crosshair" }}
       >
-        {true && (
+        {/* {true && (
           <div className="absolute top-2 left-2 bg-black/80 text-green-400 px-3 py-2 rounded font-mono text-sm z-50">
             x: {mousePos.x.toFixed(2)}% | y: {mousePos.y.toFixed(2)}%
             <div className="text-xs text-neutral-400 mt-1">
               Cliquez pour copier
             </div>
           </div>
-        )}
+        )} */}
         {selectedDestinationId && (
           <button className="relative z-20" onClick={onBackClick}>
             <Image

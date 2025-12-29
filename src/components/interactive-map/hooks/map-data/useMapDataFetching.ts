@@ -1,5 +1,5 @@
-import useActionsStore from "@/components/action/store/useActionsStore";
-import useLineupsStore from "@/components/lineup/store/useLineupsStore";
+import useActionsStore from "@/components/store/useActionsStore";
+import useLineupsStore from "@/components/store/useLineupsStore";
 import { useEffect } from "react";
 import { useFilters } from "../filters/useFilters";
 

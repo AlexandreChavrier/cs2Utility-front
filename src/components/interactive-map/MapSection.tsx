@@ -2,13 +2,11 @@
 
 import FilterSection from "./components/FilterSection";
 import { usePathname } from "next/navigation";
-import useMapsStore from "../map/store/useMapsStore";
-import { useSyncMap } from "../map/hooks/useSyncMap";
-import useActionsStore from "../action/store/useActionsStore";
+import useMapsStore from "../store/useMapsStore";
+import useActionsStore from "../store/useActionsStore";
 import MapWithPoints from "./components/MapWithPoints";
 import { teamsFilters, utilitiesFilters } from "./helpers/mapToFilterItems";
 import { useDisplayRadarImage } from "./hooks/overlay/useDisplayRadarImage";
-import { useMapHeight } from "./hooks/overlay/useMapHeight";
 import { useGetDestinationPoints } from "./hooks/map-data/useGetDestinationPoints";
 import { useFilters } from "./hooks/filters/useFilters";
 import { useSelectedDestination } from "./hooks/map-data/useSelectedDestination";
@@ -17,6 +15,7 @@ import { useFilterHandlers } from "./hooks/filters/useFilterHandlers";
 import { useGetLineupPoints } from "./hooks/map-data/useGetLineupPoints";
 import { useMapDataFetching } from "./hooks/map-data/useMapDataFetching";
 import TwoColumnsLayout from "../layouts/TwoColumnsLayout";
+import { useSyncMap } from "@/hooks/useSyncMap";
 
 const MapSection = ({
   radarMapImage,

@@ -3,7 +3,7 @@ import MenuIcon from "../icons/MenuIcon";
 import Image from "next/image";
 import Link from "next/link";
 import useClickOutside from "@/utils/hooks/useHandleClickOutside";
-import useMapsStore from "@/components/map/store/useMapsStore";
+import useMapsStore from "@/components/store/useMapsStore";
 
 export type DropdownMenuProps = {
   className?: string;

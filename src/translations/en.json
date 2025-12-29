@@ -1,0 +1,20 @@
+{
+  "global": {
+    "hello": "hello"
+  },
+  "home": {
+    "title": "welcome to CS2Utility, know all the lineups and actions possible on a map",
+    "description": "Access a selection of the best lineups for smokes, grenades, molotovs and flashes, drawn from the strategies of pros and the tricks of the community.",
+    "button": {
+      "viewAllMaps": "View all maps",
+      "viewPopularLineups": "View popular lineups"
+    }
+  },
+  "header": {
+    "interactiveMap": "interactive map",
+    "popularLineups": "popular lineups",
+    "book": "book",
+    "login": "login"
+  }
+
+}

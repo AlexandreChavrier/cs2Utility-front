@@ -68,7 +68,6 @@ const AuthentificationModal = ({
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   placeholder="your@email.com"
-                  disabled={isLoading}
                   className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-md text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                 />
               </div>
@@ -85,7 +84,6 @@ const AuthentificationModal = ({
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  disabled={isLoading}
                   placeholder="••••••••"
                   className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-md text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                 />
@@ -101,10 +99,9 @@ const AuthentificationModal = ({
 
               <button
                 type="submit"
-                disabled={isLoading}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-neutral-1000"
               >
-                {isLoading ? "Signing In..." : "Sign In"}
+                {"Sign In"}
               </button>
 
               <div className="text-center pt-4 border-t border-neutral-800">

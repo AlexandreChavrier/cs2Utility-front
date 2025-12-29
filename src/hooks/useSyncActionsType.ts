@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import useActionsStore from "../store/useActionsStore";
+import useActionsStore from "../components/store/useActionsStore";
 
 export function useSyncActionsType() {
   const { getActionTypes, isFetching, actionTypes } = useActionsStore();

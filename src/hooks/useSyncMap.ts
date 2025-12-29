@@ -1,7 +1,7 @@
 "use client";
 
+import useMapsStore from "@/components/store/useMapsStore";
 import { useParams, useRouter, usePathname } from "next/navigation";
-import useMapsStore from "../store/useMapsStore";
 import { useEffect, useMemo } from "react";
 
 export function useSyncMap() {

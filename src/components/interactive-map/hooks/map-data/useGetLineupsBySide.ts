@@ -1,4 +1,4 @@
-import useLineupsStore from "@/components/lineup/store/useLineupsStore";
+import useLineupsStore from "@/components/store/useLineupsStore";
 import { useMemo } from "react";
 import { useFilters } from "../filters/useFilters";
 

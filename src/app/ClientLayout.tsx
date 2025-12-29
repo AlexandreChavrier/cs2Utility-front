@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import useAuthStore from "@/components/auth/store/useAuthStore";
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
-import { useSyncActionsType } from "@/components/action/hooks/useSyncActionsType";
-import { useSyncMap } from "@/components/map/hooks/useSyncMap";
+import { useSyncActionsType } from "@/hooks/useSyncActionsType";
+import { useSyncMap } from "@/hooks/useSyncMap";
 
 export default function ClientLayout({
   children,

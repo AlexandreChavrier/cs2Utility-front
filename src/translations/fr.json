@@ -1,0 +1,19 @@
+{
+  "global": {
+    "hello": "hello"
+  },
+  "home": {
+    "title": "CS2Utility : plateforme de référence des lineups et autres données sur Counter-Strike 2",
+    "description": "accède à une sélection des meilleurs lineups pour smokes, grenades, molotovs et flashs, tirés des stratégies des pros et des astuces de la communauté.",
+    "button": {
+      "viewAllMaps": "voir toutes cartes",
+      "viewPopularLineups": "voir les lineups populaires"
+    }
+  },
+  "header": {
+    "interactiveMap": "carte intéractive",
+    "popularLineups": "lineups populaires",
+    "book": "book",
+    "login": "se connecter"
+  }
+}

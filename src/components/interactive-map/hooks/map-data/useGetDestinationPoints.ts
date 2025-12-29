@@ -1,6 +1,6 @@
 import { useFilters } from "../filters/useFilters";
 import { useMemo } from "react";
-import useActionsStore from "@/components/action/store/useActionsStore";
+import useActionsStore from "@/components/store/useActionsStore";
 import { DestinationPoint } from "@/lib/cs2utilityApi/apiResponses";
 import { useGetLineupsBySide } from "./useGetLineupsBySide";
 
