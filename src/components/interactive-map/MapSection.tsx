@@ -33,8 +33,7 @@ const MapSection = ({
 
   const { isAuthenticated } = useAuthStore();
 
-  const { mapFilters } = useMapsStore();
-  const { currentMap } = useSyncMap();
+  const { mapFilters, currentMap } = useMapsStore();
   const { actionTypeFilters } = useActionsStore();
 
   const {

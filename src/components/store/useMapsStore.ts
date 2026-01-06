@@ -11,6 +11,8 @@ type MapState = {
   maps: Map[];
   mapFilters: FilterItem[]; // ← Ajoute ça
   isFetching: boolean;
+  currentMapId: string | undefined;
+  currentMap: Map | undefined;
   hasError: boolean;
 };
 
@@ -18,16 +20,19 @@ const initialState: MapState = {
   maps: [],
   mapFilters: [],
   isFetching: false,
+  currentMapId: undefined,
+  currentMap: undefined,
   hasError: false,
 };
 
 type MapActions = {
   getActiveMaps: () => Promise<void>;
+  setCurrentMapId: (mapId: string) => void;
 };
 
 export type MapsStore = MapState & MapActions;
 
-const useMapsStore = createAppStore<MapsStore>("maps", (set) => ({
+const useMapsStore = createAppStore<MapsStore>("maps", (set, get) => ({
   ...initialState,
   async getActiveMaps() {
     try {
@@ -43,11 +48,19 @@ const useMapsStore = createAppStore<MapsStore>("maps", (set) => ({
         hasError: false,
         maps: maps,
         mapFilters,
+        currentMap: get().currentMapId
+          ? maps.find((m) => m.id === get().currentMapId)
+          : undefined,
       });
     } catch (error) {
       console.error(error);
       set({ isFetching: false, hasError: true });
     }
+  },
+  setCurrentMapId(mapId: string) {
+    const maps = get().maps;
+    const currentMap = maps.find((m) => m.id === mapId);
+    set({ currentMapId: mapId, currentMap });
   },
 }));
 

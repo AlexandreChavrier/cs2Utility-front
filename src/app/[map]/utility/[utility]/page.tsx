@@ -11,8 +11,7 @@ export default function MapUtilityPage() {
   const params = useParams();
   const currentUtility = params.utility as string;
 
-  const { isFetching } = useMapsStore();
-  const { currentMap } = useSyncMap();
+  const { isFetching, currentMap } = useMapsStore();
 
   if (!VALID_UTILITIES.includes(currentUtility)) {
     notFound();

@@ -1,12 +1,11 @@
 "use client";
 
 import MapSection from "@/components/interactive-map/MapSection";
-import { useSyncMap } from "@/hooks/useSyncMap";
 import useMapsStore from "@/components/store/useMapsStore";
 
 export default function MapPage() {
   const { isFetching } = useMapsStore();
-  const { currentMap } = useSyncMap();
+  const { currentMap } = useMapsStore();
 
   if (!isFetching && currentMap)
     return (
