@@ -3,7 +3,15 @@
     "hello": "hello",
     "back": "retour",
     "filters": "filtres",
-    "filtersPanel": "Panneau de filtres"
+    "filtersPanel": "Panneau de filtres",
+    "button": "boutton",
+    "user": "utilisateur",
+    "auth": {
+      "signIn": "se connecter",
+      "signUp": "s'inscrire",
+      "noAccount": "pas de compte ?",
+      "registerHere": "s'inscrire ici"
+    }
   },
   "home": {
     "title": "CS2Utility : plateforme de référence des lineups et autres données sur Counter-Strike 2",

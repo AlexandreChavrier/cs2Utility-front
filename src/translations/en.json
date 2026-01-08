@@ -3,7 +3,15 @@
     "hello": "hello",
     "back": "back",
     "filters": "filters",
-    "filtersPanel": "Filters panel"
+    "filtersPanel": "Filters panel",
+    "button": "button",
+    "user": "user",
+    "auth": {
+      "signIn": "sign in",
+      "signUp": "sign up",
+      "noAccount": "no account yet?",
+      "registerHere": "register here"
+    }
   },
   "home": {
     "title": "welcome to CS2Utility, know all the lineups and actions possible on a map",

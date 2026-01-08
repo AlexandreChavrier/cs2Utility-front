@@ -16,7 +16,7 @@ const HeroContent = () => {
         <p>{upperFirst(dictionary.home.description)}</p>
       </div>
 
-      <div className="flex justify-center gap-4">
+      {/* <div className="flex justify-center gap-4">
         <DefaultButton
           title={upperFirst(dictionary.home.button.viewAllMaps)}
           icon={<RoadMap />}
@@ -29,7 +29,7 @@ const HeroContent = () => {
           variant="outline"
           size="md"
         />
-      </div>
+      </div> */}
     </div>
   );
 };
