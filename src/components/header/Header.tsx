@@ -1,10 +1,6 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import DefaultButton from "@/components/ui/buttons/DefaultButton";
-import DropdownMenuHeader from "../ui/navigation/DropdownMenuHeader";
-import HeartIcon from "../ui/icons/HeartIcon";
-import SunIcon from "../ui/icons/SunIcon";
 import { useState } from "react";
 import AuthentificationModal from "../auth/AuthentificationModal";
 import { useDictionary } from "@/utils/providers/dictionaryProvider";
@@ -19,7 +15,7 @@ const Header = () => {
   const pathname = usePathname();
 
   const dictionary = useDictionary();
-  const { isAuthenticated, logout } = useAuthStore();
+  const { isAuthenticated } = useAuthStore();
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);

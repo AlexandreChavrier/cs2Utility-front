@@ -15,7 +15,6 @@ import { useFilterHandlers } from "./hooks/filters/useFilterHandlers";
 import { useGetLineupPoints } from "./hooks/map-data/useGetLineupPoints";
 import { useMapDataFetching } from "./hooks/map-data/useMapDataFetching";
 import TwoColumnsLayout from "../layouts/TwoColumnsLayout";
-import { useSyncMap } from "@/hooks/useSyncMap";
 import useAuthStore from "../auth/store/useAuthStore";
 import { useDictionary } from "@/utils/providers/dictionaryProvider";
 import { upperFirst } from "lodash";
@@ -62,7 +61,7 @@ const MapSection = ({
 
   useEffect(() => {
     clearSelectedDestination();
-  }, [filters.side, filters.actions]);
+  }, [filters.side, filters.actions, clearSelectedDestination]);
 
   const destinationPointsToShow = useMemo(() => {
     if (!selectedDestinationPointId) {

@@ -1,8 +1,8 @@
 "use client";
 
 import useMapsStore from "@/components/store/useMapsStore";
-import { useParams, useRouter, usePathname } from "next/navigation";
-import { useEffect, useMemo } from "react";
+import { useParams } from "next/navigation";
+import { useEffect } from "react";
 
 export function useSyncMap() {
   const { maps, isFetching, getActiveMaps } = useMapsStore();

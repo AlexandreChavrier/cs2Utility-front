@@ -7,11 +7,10 @@ export const useDisplayRadarImage = (isNuke: boolean, defaultImage: string) => {
     setNukeView((prev) => !prev);
   }, []);
 
-  const displayImage = isNuke
-    ? nukeView
-      ? "/assets/maps/nuke/radar-down.webp"
-      : "/assets/maps/nuke/radar-up.webp"
-    : defaultImage;
+  const displayImage =
+    isNuke && nukeView
+      ? "/assets/maps/nuke/radar-down.webp" // Vue down de Nuke (hardcodé)
+      : defaultImage;
 
   return { nukeView, toggleNukeView, displayImage };
 };

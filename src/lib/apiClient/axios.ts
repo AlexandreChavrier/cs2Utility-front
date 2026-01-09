@@ -1,23 +1,29 @@
-import axios from "axios";
+import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 import { ApiRoutes } from "../cs2utilityApi/apiRoutes";
+
+// Interface pour la file d'attente
+interface QueueItem {
+  resolve: (value?: unknown) => void;
+  reject: (reason?: unknown) => void;
+}
 
 // Configuration de base
 const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
-  withCredentials: true, // permet l'envoi des cookies httpOnly
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
   paramsSerializer: {
-    indexes: null, // Pour avoir actionTypes[]=Boost au lieu de actionTypes[0]=Boost
+    indexes: null,
   },
 });
 
 // Variable pour éviter les appels multiples de refresh
 let isRefreshing = false;
-let failedQueue: any[] = [];
+let failedQueue: QueueItem[] = [];
 
-const processQueue = (error: any, token: string | null = null) => {
+const processQueue = (error: unknown, token: string | null = null) => {
   failedQueue.forEach((prom) => {
     if (error) {
       prom.reject(error);
@@ -29,19 +35,21 @@ const processQueue = (error: any, token: string | null = null) => {
   failedQueue = [];
 };
 
-// Intercepteur de réponse pour gérer les erreurs et le refresh automatique
+// Extension du type pour ajouter _retry
+interface RetryAxiosRequestConfig extends InternalAxiosRequestConfig {
+  _retry?: boolean;
+}
+
+// Intercepteur de réponse
 apiClient.interceptors.response.use(
   (response) => {
-    // Si la réponse est OK, on la retourne telle quelle
     return response;
   },
-  async (error) => {
-    const originalRequest = error.config;
+  async (error: AxiosError) => {
+    const originalRequest = error.config as RetryAxiosRequestConfig;
 
-    // Si l'erreur est 401 (non autorisé) et qu'on n'a pas encore essayé de refresh
     if (error.response?.status === 401 && !originalRequest._retry) {
       if (isRefreshing) {
-        // Si un refresh est déjà en cours, on met la requête en file d'attente
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
         })
@@ -57,17 +65,12 @@ apiClient.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        // Appel au endpoint refresh pour obtenir de nouveaux tokens
         await apiClient.post(ApiRoutes.REFRESH);
-
         processQueue(null, null);
-
-        // Relancer la requête originale
         return apiClient(originalRequest);
       } catch (refreshError) {
         processQueue(refreshError, null);
 
-        // Si le refresh échoue, rediriger vers la page de login
         if (typeof window !== "undefined") {
           window.location.href = "/login";
         }

@@ -6,12 +6,12 @@ import {
   LineupResponse,
 } from "@/lib/cs2utilityApi/apiResponses";
 import Image from "next/image";
-import { memo, useRef, useState } from "react";
-import { MapPoint } from "./MapPoint";
+import { memo, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { upperFirst } from "lodash";
 import { useDictionary } from "@/utils/providers/dictionaryProvider";
 import useMapsStore from "@/components/store/useMapsStore";
+import MapPoint from "./MapPoint";
 
 interface Props {
   mapImgUrl: string;
@@ -44,38 +44,38 @@ const MapWithPoints = memo(
     const mapName = currentMap?.displayName;
 
     const dictionary = useDictionary();
-    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+    // const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
     const imgRef = useRef<HTMLImageElement>(null);
 
     // ✅ Handler pour récupérer les coordonnées au clic
-    const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
-      if (!imgRef.current) return;
+    // const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    //   if (!imgRef.current) return;
 
-      const rect = imgRef.current.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
+    //   const rect = imgRef.current.getBoundingClientRect();
+    //   const x = ((e.clientX - rect.left) / rect.width) * 100;
+    //   const y = ((e.clientY - rect.top) / rect.height) * 100;
 
-      // Copie dans le clipboard
-      const coords = `x: ${x.toFixed(2)}, y: ${y.toFixed(2)}`;
-      navigator.clipboard.writeText(coords);
+    //   // Copie dans le clipboard
+    //   const coords = `x: ${x.toFixed(2)}, y: ${y.toFixed(2)}`;
+    //   navigator.clipboard.writeText(coords);
 
-      console.log(
-        `%c📍 Coordonnées copiées: ${coords}`,
-        "color: #00ff00; font-size: 16px; font-weight: bold"
-      );
-      console.log(`JSON: { x: ${x.toFixed(2)}, y: ${y.toFixed(2)} }`);
-    };
+    //   console.log(
+    //     `%c📍 Coordonnées copiées: ${coords}`,
+    //     "color: #00ff00; font-size: 16px; font-weight: bold"
+    //   );
+    //   console.log(`JSON: { x: ${x.toFixed(2)}, y: ${y.toFixed(2)} }`);
+    // };
 
     // ✅ Handler pour afficher les coordonnées au survol
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-      if (!imgRef.current) return;
+    // const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    //   if (!imgRef.current) return;
 
-      const rect = imgRef.current.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
+    //   const rect = imgRef.current.getBoundingClientRect();
+    //   const x = ((e.clientX - rect.left) / rect.width) * 100;
+    //   const y = ((e.clientY - rect.top) / rect.height) * 100;
 
-      setMousePos({ x, y });
-    };
+    //   setMousePos({ x, y });
+    // };
 
     const selectedDestination = destinationPoints.find(
       (p) => p.uuid === selectedDestinationId
@@ -210,5 +210,7 @@ const MapWithPoints = memo(
     );
   }
 );
+
+MapWithPoints.displayName = "MapWithPoints";
 
 export default MapWithPoints;

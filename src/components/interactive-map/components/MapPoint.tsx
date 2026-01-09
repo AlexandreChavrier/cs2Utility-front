@@ -12,7 +12,7 @@ interface Props {
   isSelected?: boolean;
 }
 
-export const MapPoint = memo(
+const MapPoint = memo(
   ({
     uuid,
     x,
@@ -48,3 +48,7 @@ export const MapPoint = memo(
     );
   }
 );
+
+MapPoint.displayName = "MapPoint";
+
+export default MapPoint;

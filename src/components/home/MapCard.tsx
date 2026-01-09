@@ -10,13 +10,7 @@ export type CardProps = {
   className?: string;
 };
 
-const MapCard = ({
-  title,
-  image,
-  icon,
-  href = "",
-  className = "",
-}: CardProps) => {
+const MapCard = ({ title, image, href = "", className = "" }: CardProps) => {
   return (
     <Link
       href={href}

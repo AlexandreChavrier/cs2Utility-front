@@ -1,7 +1,6 @@
 "use client";
 
 import { useParams, notFound } from "next/navigation";
-import { useSyncMap } from "@/hooks/useSyncMap";
 import useMapsStore from "@/components/store/useMapsStore";
 import MapSection from "@/components/interactive-map/MapSection";
 

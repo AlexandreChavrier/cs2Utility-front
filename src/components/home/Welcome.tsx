@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import RoadMap from "@/components/ui/icons/RoadMap";
-import DefaultButton from "@/components/ui/buttons/DefaultButton";
-import Flame from "@/components/ui/icons/Flame";
+// import RoadMap from "@/components/ui/icons/RoadMap";
+// import DefaultButton from "@/components/ui/buttons/DefaultButton";
+// import Flame from "@/components/ui/icons/Flame";
 import { useDictionary } from "@/utils/providers/dictionaryProvider";
 import { upperFirst } from "lodash";
 

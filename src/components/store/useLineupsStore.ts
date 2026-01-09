@@ -1,8 +1,5 @@
 import apiClient from "@/lib/apiClient/axios";
-import {
-  DestinationPoint,
-  LineupResponse,
-} from "@/lib/cs2utilityApi/apiResponses";
+import { LineupResponse } from "@/lib/cs2utilityApi/apiResponses";
 import { ApiRoutes } from "@/lib/cs2utilityApi/apiRoutes";
 import { createAppStore } from "@/lib/store/createAppStore";
 

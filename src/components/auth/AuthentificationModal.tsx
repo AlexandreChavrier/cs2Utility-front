@@ -3,9 +3,6 @@
 import useClickOutside from "@/utils/hooks/useHandleClickOutside";
 import React, { useRef, useState, useEffect } from "react";
 import useAuthStore from "./store/useAuthStore";
-import DefaultButton from "../ui/buttons/DefaultButton";
-import { upperFirst } from "lodash";
-import { useDictionary } from "@/utils/providers/dictionaryProvider";
 
 interface AuthentificationModalProps {
   isOpen?: boolean;
@@ -20,7 +17,7 @@ const AuthentificationModal = ({
 }: AuthentificationModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
-  const dictionary = useDictionary();
+  // const dictionary = useDictionary();
   const [mode, setMode] = useState<AuthMode>("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -24,7 +24,7 @@ export const useFilterHandlers = (
     (actionTypeId: string) => {
       toggleActionFilters(actionTypeId, currentMapId);
     },
-    [toggleActionFilters]
+    [toggleActionFilters, currentMapId]
   );
 
   const handleMapClick = useCallback(

@@ -53,4 +53,6 @@ const FilterSection = memo(
   }
 );
 
+FilterSection.displayName = "FilterSection";
+
 export default FilterSection;

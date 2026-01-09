@@ -5,16 +5,15 @@ import useClickOutside from "@/utils/hooks/useHandleClickOutside";
 import MenuIcon from "../ui/icons/MenuIcon";
 import { upperFirst } from "lodash";
 import { useDictionary } from "@/utils/providers/dictionaryProvider";
-import AuthentificationModal from "../auth/AuthentificationModal";
 import Link from "next/link";
 
 export const UserBadge = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isAuthModaleOpen, setIsAuthModaleOpen] = useState(false);
+  // const [isAuthModaleOpen, setIsAuthModaleOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const dictionary = useDictionary();
-  const { user, isAuthenticated, logout } = useAuthStore();
+  const { logout } = useAuthStore();
   useClickOutside(dropdownRef, () => setIsOpen(false), "mousedown");
 
   return (

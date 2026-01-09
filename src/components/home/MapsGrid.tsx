@@ -2,8 +2,6 @@
 
 import React from "react";
 import MapCard from "@/components/home/MapCard";
-import ButtonRound from "@/components/ui/buttons/ButtonRound";
-import Arrow from "@/components/ui/icons/Arrow";
 import useMapsStore from "../store/useMapsStore";
 
 const HeroMapsGrid = () => {

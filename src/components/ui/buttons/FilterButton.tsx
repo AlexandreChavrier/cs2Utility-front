@@ -37,4 +37,6 @@ const FilterButton = memo(
   }
 );
 
+FilterButton.displayName = "FilterButton";
+
 export default FilterButton;

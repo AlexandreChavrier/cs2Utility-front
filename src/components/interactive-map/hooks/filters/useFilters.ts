@@ -61,7 +61,7 @@ export const useFilters = () => {
 
       router.replace(newUrl, { scroll: false });
     },
-    [searchParams, router, pathname]
+    [searchParams, router]
   );
   const clearFilters = useCallback(() => {
     router.replace(pathname, { scroll: false });
