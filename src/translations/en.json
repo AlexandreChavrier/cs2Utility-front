@@ -1,6 +1,9 @@
 {
   "global": {
-    "hello": "hello"
+    "hello": "hello",
+    "back": "back",
+    "filters": "filters",
+    "filtersPanel": "Filters panel"
   },
   "home": {
     "title": "welcome to CS2Utility, know all the lineups and actions possible on a map",
@@ -25,5 +28,4 @@
     "maps": "maps",
     "teams": "teams"
   }
-
 }

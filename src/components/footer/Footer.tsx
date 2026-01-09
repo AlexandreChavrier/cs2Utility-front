@@ -33,13 +33,19 @@ const Footer = () => {
         <div className="flex items-start justify-center gap-8 text-left">
           <div className="w-full flex flex-col gap-4">
             <Link href="/" className="flex-shrink-0">
-              <Image src="/assets/logo.png" alt="logo" width={56} height={56} />
+              <Image
+                src="/assets/logo.png"
+                alt="CS2 Utility logo"
+                width={56}
+                height={56}
+              />
             </Link>
             <Image
               src="/assets/CS2-decks-img-logo.png"
-              alt="CS2 Decks"
+              alt=""
               width={220}
               height={64}
+              aria-hidden="true"
             />
           </div>
 

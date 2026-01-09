@@ -25,6 +25,7 @@ const FilterButton = memo(
         `}
           onClick={onClick}
           disabled={disabled}
+          aria-pressed={isActive}
         >
           <div className="flex items-center gap-2 flex-1 min-w-0">
             {renderIcon(filterName, icon)}

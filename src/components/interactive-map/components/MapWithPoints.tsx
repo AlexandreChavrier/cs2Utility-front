@@ -9,6 +9,9 @@ import Image from "next/image";
 import { memo, useRef, useState } from "react";
 import { MapPoint } from "./MapPoint";
 import { usePathname, useRouter } from "next/navigation";
+import { upperFirst } from "lodash";
+import { useDictionary } from "@/utils/providers/dictionaryProvider";
+import useMapsStore from "@/components/store/useMapsStore";
 
 interface Props {
   mapImgUrl: string;
@@ -37,6 +40,10 @@ const MapWithPoints = memo(
     const router = useRouter();
     const pathname = usePathname();
 
+    const { currentMap } = useMapsStore();
+    const mapName = currentMap?.displayName;
+
+    const dictionary = useDictionary();
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
     const imgRef = useRef<HTMLImageElement>(null);
 
@@ -77,6 +84,10 @@ const MapWithPoints = memo(
     return (
       <div
         className="relative w-full aspect-[4/3]"
+        role="region"
+        aria-label={`${upperFirst(
+          dictionary.interactiveMap.maps
+        )} - ${mapName}`}
         // onClick={handleMapClick} // ← AJOUT ICI
         // onMouseMove={handleMouseMove} // ← AJOUT ICI
         // style={{ cursor: "crosshair" }}
@@ -90,10 +101,15 @@ const MapWithPoints = memo(
           </div>
         )} */}
         {selectedDestinationId && (
-          <button className="relative z-20" onClick={onBackClick}>
+          <button
+            className="relative z-20"
+            onClick={onBackClick}
+            aria-label={upperFirst(dictionary.global.back)}
+          >
             <Image
               src="/assets/arrow.png"
-              alt="Retour"
+              alt=""
+              aria-hidden="true"
               width={34}
               height={34}
             />
@@ -111,7 +127,7 @@ const MapWithPoints = memo(
         <Image
           ref={imgRef}
           src={mapImgUrl}
-          alt={""}
+          alt={`${mapName} radar overview`}
           fill
           priority
           className="object-contain"
@@ -122,6 +138,7 @@ const MapWithPoints = memo(
             className="absolute inset-0 w-full h-full pointer-events-none"
             viewBox="0 0 100 100"
             preserveAspectRatio="none"
+            aria-hidden="true"
           >
             {lineupPoints.map((lineup) => {
               const points = [
@@ -160,6 +177,8 @@ const MapWithPoints = memo(
                 y={point.y}
                 iconUrl={point.iconUrl}
                 iconSize={38}
+                ariaLabel={`Destination point ${point.label}`}
+                isSelected={point.uuid === selectedDestinationId}
                 onClick={() => {
                   if (lineupPoints.length > 0) {
                     onBackClick?.();
@@ -170,7 +189,7 @@ const MapWithPoints = memo(
               />
             );
           })}
-          {lineupPoints.map((point) => {
+          {lineupPoints.map((point, index) => {
             return (
               <MapPoint
                 key={point.uuid}
@@ -179,6 +198,7 @@ const MapWithPoints = memo(
                 y={point.throwFromY}
                 iconUrl={point.iconUrl}
                 iconSize={24}
+                ariaLabel={`Lineup point ${point.title} ${index + 1}`}
                 onClick={() => {
                   router.push(`${pathname}/lineup/${point.uuid}`);
                 }}

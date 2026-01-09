@@ -80,9 +80,12 @@ const MapSection = ({
       leftColumn={
         <>
           {/* BreadCrumbsNavigationHere */}
-          <h3 className="mt-3 flex flex-wrap gap-2">
+          <h1
+            className="mt-3 flex flex-wrap gap-2 text-heading-h3"
+            id="map-title"
+          >
             {currentMap?.displayName}
-          </h3>
+          </h1>
           <FilterSection
             filters={teamsFilters}
             title={upperFirst(dictionary.interactiveMap.teams)}

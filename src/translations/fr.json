@@ -1,6 +1,9 @@
 {
   "global": {
-    "hello": "hello"
+    "hello": "hello",
+    "back": "retour",
+    "filters": "filtres",
+    "filtersPanel": "Panneau de filtres"
   },
   "home": {
     "title": "CS2Utility : plateforme de référence des lineups et autres données sur Counter-Strike 2",

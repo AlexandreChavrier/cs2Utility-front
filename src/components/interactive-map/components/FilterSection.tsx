@@ -27,11 +27,16 @@ const FilterSection = memo(
     return (
       <div className="flex flex-col gap-3">
         <h2
+          id={`filter-section-${title}`}
           className={`${disabled ? "opacity-50" : ""} text-base font-semibold`}
         >
           {title}
         </h2>
-        <div className="flex flex-wrap gap-2">
+        <div
+          className="flex flex-wrap gap-2"
+          role="group"
+          aria-labelledby={`filter-section-${title}`}
+        >
           {filters.map((filter, index) => (
             <FilterButton
               key={`${title}-${filter.filterName}-${index}`}
