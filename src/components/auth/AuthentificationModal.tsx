@@ -277,14 +277,9 @@ const AuthentificationModal = ({
 
           <button
             type="submit"
-            disabled={isLoading}
             className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-neutral-700 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-1000"
           >
-            {isLoading
-              ? "Loading..."
-              : mode === "signin"
-              ? "Sign In"
-              : "Create Account"}
+            {mode === "signin" ? "Sign In" : "Create Account"}
           </button>
         </form>
       </div>
