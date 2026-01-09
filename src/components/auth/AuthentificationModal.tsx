@@ -25,7 +25,7 @@ const AuthentificationModal = ({
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
-  const { login, register, isLoading } = useAuthStore();
+  const { login, register } = useAuthStore();
 
   // Reset form quand on change de mode
   const resetForm = () => {
