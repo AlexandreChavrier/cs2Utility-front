@@ -1,4 +1,4 @@
-import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
+import axios, { AxiosError } from "axios";
 
 // Configuration de base
 const apiClient = axios.create({
