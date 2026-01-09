@@ -1,4 +1,11 @@
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
+import { ApiRoutes } from "../cs2utilityApi/apiRoutes";
+
+// Interface pour la file d'attente
+interface QueueItem {
+  resolve: (value?: unknown) => void;
+  reject: (reason?: unknown) => void;
+}
 
 // Configuration de base
 const apiClient = axios.create({
@@ -12,22 +19,68 @@ const apiClient = axios.create({
   },
 });
 
-// 🔴 INTERCEPTEUR TEMPORAIREMENT DÉSACTIVÉ POUR DEBUG
-// Intercepteur de réponse - VERSION SIMPLE
+// Variable pour éviter les appels multiples de refresh
+let isRefreshing = false;
+let failedQueue: QueueItem[] = [];
+
+const processQueue = (error: unknown, token: string | null = null) => {
+  failedQueue.forEach((prom) => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+
+  failedQueue = [];
+};
+
+// Extension du type pour ajouter _retry
+interface RetryAxiosRequestConfig extends InternalAxiosRequestConfig {
+  _retry?: boolean;
+}
+
+// Intercepteur de réponse
 apiClient.interceptors.response.use(
   (response) => {
-    console.log("✅ Success:", response.config.url, response.status);
     return response;
   },
   async (error: AxiosError) => {
-    console.error(
-      "❌ Error:",
-      error.config?.url,
-      error.response?.status,
-      error.message
-    );
+    const originalRequest = error.config as RetryAxiosRequestConfig;
 
-    // 🔴 ON NE RETRY PAS - on rejette directement
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        })
+          .then(() => {
+            return apiClient(originalRequest);
+          })
+          .catch((err) => {
+            return Promise.reject(err);
+          });
+      }
+
+      originalRequest._retry = true;
+      isRefreshing = true;
+
+      try {
+        await apiClient.post(ApiRoutes.REFRESH);
+        processQueue(null, null);
+        return apiClient(originalRequest);
+      } catch (refreshError) {
+        processQueue(refreshError, null);
+
+        if (typeof window !== "undefined") {
+          window.location.href = "/login";
+        }
+
+        return Promise.reject(refreshError);
+      } finally {
+        isRefreshing = false;
+      }
+    }
+
     return Promise.reject(error);
   }
 );
